@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models\Admin;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,5 +16,10 @@ class JenisBarangModel extends Model
         'jenisbarang_nama',
         'jenisbarang_slug',
         'jenisbarang_ket'
-    ]; 
+    ];
+
+    public function barangs(): HasMany
+    {
+        return $this->hasMany(BarangModel::class, 'jenisbarang_id', 'jenisbarang_id');
+    }
 }

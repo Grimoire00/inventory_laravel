@@ -13,24 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        
         Schema::create('tbl_barang', function (Blueprint $table) {
-            $table->primary('barang_id');
-            // $table->primary('id');
-            $table->unsignedBigInteger('jenisbarang_id');
-            // $table->string('jenisbarang_id')->nullable();
-            $table->string('satuan_id')->nullable();
-            $table->string('merk_id')->nullable();
+            $table->bigIncrements('barang_id');
+            $table->unsignedBigInteger('jenisbarang_id')->nullable();;
+            $table->unsignedBigInteger('satuan_id')->nullable();
+            $table->unsignedBigInteger('merk_id')->nullable();
             $table->string('barang_kode');
             $table->string('barang_nama');
             $table->string('barang_slug');
             $table->string('barang_harga');
             $table->string('barang_stok');
             $table->string('barang_gambar');
+            $table->foreign('jenisbarang_id')->references('jenisbarang_id')->on('tbl_jenisbarang')->nullOnDelete();
+            $table->foreign('satuan_id')->references('satuan_id')->on('tbl_satuan')->nullOnDelete();
+            $table->foreign('merk_id')->references('merk_id')->on('tbl_merk')->nullOnDelete();
             $table->timestamps();
-
-            
-            $table->foreign('jenisbarang_id')->references('jenisbarang_id')->on('tbl_jenisbarang');
         });
     }
 

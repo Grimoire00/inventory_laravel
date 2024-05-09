@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_akses', function (Blueprint $table) {
-            $table->increments('akses_id');
+            $table->bigIncrements('akses_id');
             $table->string('menu_id')->nullable();
             $table->string('submenu_id')->nullable();
             $table->string('othermenu_id')->nullable();

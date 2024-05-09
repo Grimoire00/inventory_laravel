@@ -14,13 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_jenisbarang', function (Blueprint $table) {
-            $table->primary('jenisbarang_id');
+            $table->bigIncrements('jenisbarang_id');
             $table->string('jenisbarang_nama');
             $table->string('jenisbarang_slug');
             $table->string('jenisbarang_keterangan')->nullable();
             $table->timestamps();
-
-            
         });
     }
 

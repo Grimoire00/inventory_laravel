@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_appreance', function (Blueprint $table) {
-            $table->increments('appreance_id');
+            $table->bigIncrements('appreance_id');
             $table->string('user_id');
             $table->string('appreance_layout')->nullable();
             $table->string('appreance_theme')->nullable();

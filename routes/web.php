@@ -191,3 +191,18 @@ Route::group(['middleware' => 'userlogin'], function () {
         });
     });
 });
+
+Route::get('/tes', function() {
+    // COntoh ngambil barang id 2
+    $data = \App\Models\Admin\BarangModel::with('jenisBarang')->findOrFail(2);
+    // cara manggil relasinya sesuaikan dengan nama fungsi di model BarangModel
+    // $data itu data di tabel barang
+    // $data->jenisBarang itu data di tabel jenis barang yang terkoneksi sama tabel barang
+    dd([
+        "Kode Barang" => $data->barang_kode,
+        "Nama Barang" => $data->barang_nama,
+        "Semua Atribut Jenis Barang di Tabel Barang" => $data->jenisBarang,
+        "Atribut Jenis Barang dari Barang datanya (nama)" => $data->jenisBarang->jenisbarang_nama,
+        "Atribut Jenis Barang dari Barang datanya (slug)" => $data->jenisBarang->jenisbarang_slug,
+    ]); 
+});

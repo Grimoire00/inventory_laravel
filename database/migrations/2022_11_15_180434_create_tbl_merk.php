@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_merk', function (Blueprint $table) {
-            $table->increments('merk_id');
+            $table->bigIncrements('merk_id');
             $table->string('merk_nama');
             $table->string('merk_slug');
             $table->string('merk_keterangan')->nullable();

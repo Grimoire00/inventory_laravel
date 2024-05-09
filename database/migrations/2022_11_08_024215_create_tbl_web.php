@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_web', function (Blueprint $table) {
-            $table->increments('web_id');
+            $table->bigIncrements('web_id');
             $table->string('web_nama');
             $table->string('web_logo');
             $table->string('web_deskripsi')->nullable();

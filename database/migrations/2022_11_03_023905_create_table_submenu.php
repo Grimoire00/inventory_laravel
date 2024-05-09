@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_submenu', function (Blueprint $table) {
-            $table->increments('submenu_id');
+            $table->bigIncrements('submenu_id');
             $table->string('menu_id');
             $table->string('submenu_judul');
             $table->string('submenu_slug');

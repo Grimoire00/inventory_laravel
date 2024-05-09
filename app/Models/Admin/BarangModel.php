@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models\Admin;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,5 +22,20 @@ class BarangModel extends Model
         'barang_harga',
         'barang_stok',
         'barang_gambar',
-    ]; 
+    ];
+    
+    public function jenisBarang(): BelongsTo
+    {
+        return $this->belongsTo(JenisBarangModel::class, 'jenisbarang_id', 'jenisbarang_id');
+    }
+
+    public function tbl_satuan()
+    {
+        return $this->belongsTo(SatuanModel::class, 'satuan_id', 'satuan_id');
+    }
+
+    public function tbl_merk()
+    {
+        return $this->belongsTo(MerkModel::class, 'merk_id', 'merk_id');
+    }
 }
