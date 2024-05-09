@@ -28,7 +28,29 @@ class MenuTableSeeder extends Seeder
                     'menu_type' => 1,
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-                ]
+                ],
+                [
+                    'menu_id' => '1667444042',
+                    'menu_judul' => 'Supplier',
+                    'menu_slug' => 'suppplier',
+                    'menu_icon' => 'user',
+                    'menu_redirect' => '/supplier',
+                    'menu_sort' => 2,
+                    'menu_type' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ],
+                [
+                    'menu_id' => '1667444043',
+                    'menu_judul' => 'Customer',
+                    'menu_slug' => 'customer',
+                    'menu_icon' => 'users',
+                    'menu_redirect' => '/customer',
+                    'menu_sort' => 3,
+                    'menu_type' => 1,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ],
             ]
         );
     }

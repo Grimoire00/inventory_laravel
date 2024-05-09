@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('jenisbarang_id');
             $table->string('jenisbarang_nama');
             $table->string('jenisbarang_slug');
-            $table->string('jenisbarang_keterangan')->nullable();
+            $table->string('jenisbarang_ket')->nullable();
             $table->timestamps();
         });
     }
