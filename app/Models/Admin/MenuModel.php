@@ -19,4 +19,10 @@ class MenuModel extends Model
         'menu_sort',
         'menu_type'
     ]; 
+
+    public function tbl_submenu()
+    {
+        return $this->belongsTo(SubmenuModel::class, 'submenu_id', 'submenu_id');
+    }
+
 }

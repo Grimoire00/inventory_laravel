@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Admin;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,5 +17,11 @@ class SubmenuModel extends Model
         'submenu_slug',
         'submenu_redirect',
         'submenu_sort'
-    ]; 
+    ];
+
+    public function menus(): HasMany
+    {
+        return $this->hasMany(MenuModel::class, 'menu_id', 'menu_id');
+    }
+
 }

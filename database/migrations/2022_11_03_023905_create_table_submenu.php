@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_submenu', function (Blueprint $table) {
-            $table->bigIncrements('submenu_id');
-            $table->string('menu_id');
+            $table->bigIncrements('submenu_id');            
+            $table->unsignedBigInteger('menu_id')->nullable();
             $table->string('submenu_judul');
             $table->string('submenu_slug');
             $table->string('submenu_redirect');
             $table->string('submenu_sort');
+            $table->foreign('menu_id')->references('menu_id')->on('tbl_menu')->nullOnDelete();
             $table->timestamps();
         });
     }

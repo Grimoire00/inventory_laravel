@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tbl_barang', function (Blueprint $table) {
             $table->bigIncrements('barang_id');
-            $table->unsignedBigInteger('jenisbarang_id')->nullable();;
+            $table->unsignedBigInteger('jenisbarang_id')->nullable();
             $table->unsignedBigInteger('satuan_id')->nullable();
             $table->unsignedBigInteger('merk_id')->nullable();
             $table->string('barang_kode');

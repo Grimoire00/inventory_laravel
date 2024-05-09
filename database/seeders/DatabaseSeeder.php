@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             AksesTableSeeder::class,
             WebTableSeeder::class,
             JenisBarangTableSeeder::class,
-            BarangTableSeeder::class
+            BarangTableSeeder::class,
+            SubmenuTableSeeder::class
         ]);
     }
 }
