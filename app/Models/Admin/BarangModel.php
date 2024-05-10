@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models\Admin;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\BelongsToRelationship;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
@@ -29,13 +31,26 @@ class BarangModel extends Model
         return $this->belongsTo(JenisBarangModel::class, 'jenisbarang_id', 'jenisbarang_id');
     }
 
-    public function tbl_satuan()
+    public function tbl_satuan(): BelongsTo
     {
         return $this->belongsTo(SatuanModel::class, 'satuan_id', 'satuan_id');
     }
 
-    public function tbl_merk()
+    public function tbl_merk(): BelongsTo
     {
         return $this->belongsTo(MerkModel::class, 'merk_id', 'merk_id');
+    }
+    public function tbl_user(): BelongsTo
+    {
+        return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
+    }
+
+    public function barangmasuks(): HasMany
+    {
+        return $this->hasMany(BarangmasukModel::class, 'bm_id', 'bm_id');
+    }
+    public function barangkeluars(): HasMany
+    {
+        return $this->hasMany(BarangkeluarModel::class, 'bk_id', 'bk_id');
     }
 }

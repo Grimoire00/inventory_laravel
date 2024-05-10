@@ -18,4 +18,9 @@ class AppreanceModel extends Model
         'appreance_header',
         'appreance_sidestyle'
     ]; 
+
+    public function tbl_user()
+    {
+        return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
+    }
 }

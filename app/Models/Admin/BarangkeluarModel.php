@@ -17,5 +17,10 @@ class BarangkeluarModel extends Model
         'bk_tanggal',
         'bk_tujuan',
         'bk_jumlah',
-    ]; 
+    ];
+
+    public function tbl_customer()
+    {
+        return $this->belongsTo(CustomerModel::class, 'customer_id', 'customer_id');
+    }
 }

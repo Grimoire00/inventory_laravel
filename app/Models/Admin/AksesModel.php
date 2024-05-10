@@ -17,4 +17,6 @@ class AksesModel extends Model
         'role_id',
         'akses_type'
     ]; 
+
+    
 }

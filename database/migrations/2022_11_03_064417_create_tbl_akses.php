@@ -15,11 +15,15 @@ return new class extends Migration
     {
         Schema::create('tbl_akses', function (Blueprint $table) {
             $table->bigIncrements('akses_id');
-            $table->string('menu_id')->nullable();
-            $table->string('submenu_id')->nullable();
-            $table->string('othermenu_id')->nullable();
-            $table->string('role_id');
+            $table->unsignedBigInteger('menu_id')->nullable();
+            $table->unsignedBigInteger('submenu_id')->nullable();
+            $table->unsignedBigInteger('othermenu_id')->nullable();
+            $table->unsignedBigInteger('role_id')->nullable();
             $table->string('akses_type');
+            $table->foreign('menu_id')->references('menu_id')->on('tbl_menu')->nullOnDelete();
+            $table->foreign('submenu_id')->references('submenu_id')->on('tbl_submenu')->nullOnDelete();
+            // $table->foreign('othermenu_id')->references('othermenu_id')->on('tbl_role')->nullOnDelete();
+            $table->foreign('role_id')->references('role_id')->on('tbl_role')->nullOnDelete();
             $table->timestamps();
         });
     }

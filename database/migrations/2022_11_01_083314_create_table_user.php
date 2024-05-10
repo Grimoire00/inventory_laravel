@@ -14,13 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tbl_user', function (Blueprint $table) {
-            $table->increments('user_id');
-            $table->string('role_id');
+            $table->bigIncrements('user_id');
+            $table->unsignedBigInteger('role_id')->nullable();
             $table->string('user_nmlengkap');
             $table->string('user_nama');
             $table->string('user_email');
             $table->string('user_foto');
             $table->string('user_password');
+            $table->foreign('role_id')->references('role_id')->on('tbl_role')->nullOnDelete();
             $table->timestamps();
         });
     }

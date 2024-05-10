@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('jenisbarang_id')->nullable();
             $table->unsignedBigInteger('satuan_id')->nullable();
             $table->unsignedBigInteger('merk_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('barang_kode');
             $table->string('barang_nama');
             $table->string('barang_slug');
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->foreign('jenisbarang_id')->references('jenisbarang_id')->on('tbl_jenisbarang')->nullOnDelete();
             $table->foreign('satuan_id')->references('satuan_id')->on('tbl_satuan')->nullOnDelete();
             $table->foreign('merk_id')->references('merk_id')->on('tbl_merk')->nullOnDelete();
+            $table->foreign('user_id')->references('user_id')->on('tbl_user')->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -16,9 +16,8 @@ class JenisBarangTableSeeder extends Seeder
     public function run()
     {
         $jenisBarang = [
-            ['jenisbarang_nama' => 'Darat', 'jenisbarang_slug' => 'darat', 'jenisbarang_ket' => 'Jenis barang darat'],
-            ['jenisbarang_nama' => 'Laut', 'jenisbarang_slug' => 'laut', 'jenisbarang_ket' => 'Jenis barang laut'],
-            ['jenisbarang_nama' => 'Udara', 'jenisbarang_slug' => 'udara', 'jenisbarang_ket' => 'Jenis barang udara'],
+            ['jenisbarang_nama' => 'Skincare', 'jenisbarang_slug' => 'skincare', 'jenisbarang_ket' => ' Jenis barang skincare'],
+            ['jenisbarang_nama' => 'Obat', 'jenisbarang_slug' => 'obat', 'jenisbarang_ket' => 'Jenis barang obat'],
         ];
  
         DB::table('tbl_jenisbarang')->insert($jenisBarang);

@@ -23,5 +23,9 @@ class SubmenuModel extends Model
     {
         return $this->hasMany(MenuModel::class, 'menu_id', 'menu_id');
     }
+    public function aksess(): HasMany
+    {
+        return $this->hasMany(AksesModel::class, 'submenu_id', 'submenu_id');
+    }
 
 }

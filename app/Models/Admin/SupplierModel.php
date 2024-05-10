@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Admin;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,4 +17,9 @@ class SupplierModel extends Model
         'supplier_alamat',
         'supplier_notelp',
     ]; 
+
+    public function barangmasuks(): HasMany
+    {
+        return $this->hasMany(BarangmasukModel::class, 'bm_id', 'bm_id');
+    }
 }

@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('tbl_appreance', function (Blueprint $table) {
             $table->bigIncrements('appreance_id');
-            $table->string('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();            
             $table->string('appreance_layout')->nullable();
             $table->string('appreance_theme')->nullable();
             $table->string('appreance_menu')->nullable();
             $table->string('appreance_header')->nullable();
             $table->string('appreance_sidestyle')->nullable();
+            $table->foreign('user_id')->references('user_id')->on('tbl_user')->nullOnDelete();
             $table->timestamps();
         });
     }

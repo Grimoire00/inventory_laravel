@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Admin;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,5 +25,8 @@ class MenuModel extends Model
     {
         return $this->belongsTo(SubmenuModel::class, 'submenu_id', 'submenu_id');
     }
-
+    public function aksess(): HasMany
+    {
+        return $this->hasMany(AksesModel::class, 'akses_id', 'akses_id');
+    }
 }
