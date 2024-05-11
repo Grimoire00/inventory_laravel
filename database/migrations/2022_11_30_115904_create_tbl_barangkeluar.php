@@ -18,10 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->unsignedBigInteger('barang_id')->nullable();
             $table->string('bk_kode');
-            $table->string('barang_kode');
-            $table->string('bk_tanggal');
+            // $table->string('barang_kode');
+            $table->timestamp('bk_tanggal');
             $table->string('bk_tujuan')->nullable();
-            $table->string('bk_jumlah');
+            $table->integer('bk_jumlah');
             $table->foreign('customer_id')->references('customer_id')->on('tbl_customer')->nullOnDelete();
             $table->foreign('barang_id')->references('barang_id')->on('tbl_barang')->nullOnDelete();
             $table->timestamps();

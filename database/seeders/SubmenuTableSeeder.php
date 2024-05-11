@@ -102,7 +102,7 @@ class submenuTableSeeder extends Seeder
                 [
                     'submenu_id' => '1667444059',
                     'menu_id' => '1667444046',
-                    'submenu_judul' => 'Lap. Stok Stok',
+                    'submenu_judul' => 'Lap. Stok Barang',
                     'submenu_slug' => 'laporan-stok-barang',                    
                     'submenu_redirect' => '/lap-stok-barang',
                     'submenu_sort' => 3,                

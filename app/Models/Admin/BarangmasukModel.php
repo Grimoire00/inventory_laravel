@@ -13,6 +13,7 @@ class BarangmasukModel extends Model
     protected $primaryKey = 'bm_id';
     protected $fillable = [
         'bm_kode',
+        'barang_id',
         'barang_kode',
         'supplier_id',
         'bm_tanggal',

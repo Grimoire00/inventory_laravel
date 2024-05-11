@@ -78,7 +78,7 @@ class UserController extends Controller
             $img = "undraw_profile.svg";
         } else {
             $image = $request->file('photo');
-            $image->storeAs('public/users/', $image->hashName());
+            $image->storeAs('/public/users', $image->hashName());
             $img = $image->hashName();
         }
 
@@ -109,7 +109,7 @@ class UserController extends Controller
 
             //upload new image
             $image = $request->file('photoU');
-            $image->storeAs('public/users', $image->hashName());
+            $image->storeAs('/public/users', $image->hashName());
 
             //delete old image
             Storage::delete('public/users/' . $user->user_foto);

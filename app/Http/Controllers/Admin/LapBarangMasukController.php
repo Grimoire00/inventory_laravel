@@ -8,7 +8,7 @@ use App\Models\Admin\WebModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LapBarangMasukController extends Controller
 {
@@ -21,9 +21,9 @@ class LapBarangMasukController extends Controller
     public function print(Request $request)
     {
         if ($request->tglawal) {
-            $data['data'] = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangmasuk.barang_kode')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->whereBetween('bm_tanggal', [$request->tglawal, $request->tglakhir])->orderBy('bm_id', 'DESC')->get();
+            $data['data'] = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangmasuk.barang_id')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->whereBetween('bm_tanggal', [$request->tglawal, $request->tglakhir])->orderBy('bm_id', 'DESC')->get();
         } else {
-            $data['data'] = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangmasuk.barang_kode')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->orderBy('bm_id', 'DESC')->get();
+            $data['data'] = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangmasuk.barang_id')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->orderBy('bm_id', 'DESC')->get();
         }
 
         $data["title"] = "Print Barang Masuk";
@@ -36,16 +36,16 @@ class LapBarangMasukController extends Controller
     public function pdf(Request $request)
     {
         if ($request->tglawal) {
-            $data['data'] = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangmasuk.barang_kode')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->whereBetween('bm_tanggal', [$request->tglawal, $request->tglakhir])->orderBy('bm_id', 'DESC')->get();
+            $data['data'] = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangmasuk.barang_kode')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->whereBetween('bm_tanggal', [$request->tglawal, $request->tglakhir])->orderBy('bm_id', 'DESC')->get();
         } else {
-            $data['data'] = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangmasuk.barang_kode')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->orderBy('bm_id', 'DESC')->get();
+            $data['data'] = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangmasuk.barang_id')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->orderBy('bm_id', 'DESC')->get();
         }
 
         $data["title"] = "PDF Barang Masuk";
         $data['web'] = WebModel::first();
         $data['tglawal'] = $request->tglawal;
         $data['tglakhir'] = $request->tglakhir;
-        $pdf = PDF::loadView('Admin.Laporan.BarangMasuk.pdf', $data);
+        $pdf = Pdf::loadView('Admin.Laporan.BarangMasuk.pdf', $data);
         
         if($request->tglawal){
             return $pdf->download('lap-bm-'.$request->tglawal.'-'.$request->tglakhir.'.pdf');
@@ -59,9 +59,9 @@ class LapBarangMasukController extends Controller
     {
         if ($request->ajax()) {
             if ($request->tglawal == '') {
-                $data = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangmasuk.barang_kode')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->orderBy('bm_id', 'DESC')->get();
+                $data = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangmasuk.barang_id')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->orderBy('bm_id', 'DESC')->get();
             } else {
-                $data = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangmasuk.barang_kode')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->whereBetween('bm_tanggal', [$request->tglawal, $request->tglakhir])->orderBy('bm_id', 'DESC')->get();
+                $data = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangmasuk.barang_id')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->whereBetween('bm_tanggal', [$request->tglawal, $request->tglakhir])->orderBy('bm_id', 'DESC')->get();
             }
             return DataTables::of($data)
                 ->addIndexColumn()

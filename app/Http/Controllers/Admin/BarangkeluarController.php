@@ -25,7 +25,7 @@ class BarangkeluarController extends Controller
     public function show(Request $request)
     {
         if ($request->ajax()) {
-            $data = BarangkeluarModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangkeluar.barang_kode')->leftJoin('tbl_customer', 'tbl_customer.customer_id', '=', 'tbl_barangkeluar.customer_id')->orderBy('bk_id', 'DESC')->get();
+            $data = BarangkeluarModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangkeluar.barang_id')->leftJoin('tbl_customer', 'tbl_customer.customer_id', '=', 'tbl_barangkeluar.customer_id')->orderBy('bk_id', 'DESC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('tgl', function ($row) {
@@ -92,11 +92,13 @@ class BarangkeluarController extends Controller
     public function proses_tambah(Request $request)
     {
 
+        $barang = BarangModel::where('barang_kode', $request->barang)->first();
         //insert data
         BarangkeluarModel::create([
             'bk_tanggal' => $request->tglkeluar,
             'bk_kode' => $request->bkkode,
-            'barang_kode' => $request->barang,
+            'barang_id' => $barang->barang_id,
+            // 'barang_kode' => $request->barang,
             'customer_id' => $request->customer,
             'bk_tujuan'   => $request->tujuan,
             'bk_jumlah'   => $request->jml,

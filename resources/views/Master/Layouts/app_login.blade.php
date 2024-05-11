@@ -16,37 +16,39 @@ $web = WebModel::first();
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="{{$web->web_deskripsi}}">
-    <meta name="author" content="{{$web->web_nama}}">
+    <meta name="description" content="{{ $web->web_deskripsi }}">
+    <meta name="author" content="{{ $web->web_nama }}">
     <meta name="keywords" content="">
 
     <!-- FAVICON -->
-    @if($web->web_logo == '' || $web->web_logo == 'default.png')
-    <link rel="shortcut icon" type="image/x-icon" href="{{url('/assets/default/web/default.png')}}" />
+    @if ($web->web_logo == '' || $web->web_logo == 'default.png')
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url('/assets/default/web/default.png') }}" />
     @else
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('storage/web/' . $web->web_logo)}}" />
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/web/' . $web->web_logo) }}" />
     @endif
 
     <!-- TITLE -->
-    <title>{{$title}} | {{$web->web_nama}}</title>
+    <title>{{ $title }} | {{ $web->web_nama }}</title>
 
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="{{ url('/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
 
     <!-- STYLE CSS -->
-    <link href="{{url('/assets/css/style.css')}}" rel="stylesheet" />
-    <link href="{{url('/assets/css/dark-style.css')}}" rel="stylesheet" />
-    <link href="{{url('/assets/css/transparent-style.css')}}" rel="stylesheet">
-    <link href="{{url('/assets/css/skin-modes.css')}}" rel="stylesheet" />
+    <link href="{{ url('/assets/css/style.css') }}" rel="stylesheet" />
+    <link href="{{ url('/assets/css/dark-style.css') }}" rel="stylesheet" />
+    <link href="{{ url('/assets/css/transparent-style.css') }}" rel="stylesheet">
+    <link href="{{ url('/assets/css/skin-modes.css') }}" rel="stylesheet" />
 
     <!--- FONT-ICONS CSS -->
-    <link href="{{url('/assets/css/icons.css')}}" rel="stylesheet" />
+    <link href="{{ url('/assets/css/icons.css') }}" rel="stylesheet" />
 
     <!-- COLOR SKIN CSS -->
-    <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{url('/assets/colors/color1.css')}}" />
+    <link id="theme" rel="stylesheet" type="text/css" media="all"
+        href="{{ url('/assets/colors/color1.css') }}" />
 
     <style>
-        html,body{
+        html,
+        body {
             overflow: auto;
         }
     </style>
@@ -59,7 +61,7 @@ $web = WebModel::first();
 
         <!-- GLOABAL LOADER -->
         <div id="global-loader">
-            <img src="{{url('/assets/images/loader.svg')}}" class="loader-img" alt="Loader">
+            <img src="{{ url('/assets/images/loader.svg') }}" class="loader-img" alt="Loader">
         </div>
         <!-- /GLOABAL LOADER -->
 
@@ -78,49 +80,49 @@ $web = WebModel::first();
     <!-- BACKGROUND-IMAGE CLOSED -->
 
     <!-- JQUERY JS -->
-    <script src="{{url('/assets/js/jquery.min.js')}}"></script>
+    <script src="{{ url('/assets/js/jquery.min.js') }}"></script>
 
     <!-- BOOTSTRAP JS -->
-    <script src="{{url('/assets/plugins/bootstrap/js/popper.min.js')}}"></script>
-    <script src="{{url('/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url('/assets/plugins/bootstrap/js/popper.min.js') }}"></script>
+    <script src="{{ url('/assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
     <!-- SWEET-ALERT JS -->
-    <script src="{{url('/assets/plugins/sweet-alert/sweetalert.min.js')}}"></script>
-    <script src="{{url('/assets/js/sweet-alert.js')}}"></script>
+    <script src="{{ url('/assets/plugins/sweet-alert/sweetalert.min.js') }}"></script>
+    <script src="{{ url('/assets/js/sweet-alert.js') }}"></script>
 
     <!-- SHOW PASSWORD JS -->
-    <script src="{{url('/assets/js/show-password.min.js')}}"></script>
+    <script src="{{ url('/assets/js/show-password.min.js') }}"></script>
 
     <!-- GENERATE OTP JS -->
-    <script src="{{url('/assets/js/generate-otp.js')}}"></script>
+    <script src="{{ url('/assets/js/generate-otp.js') }}"></script>
 
     <!-- Perfect SCROLLBAR JS-->
-    <script src="{{url('/assets/plugins/p-scroll/perfect-scrollbar.js')}}"></script>
+    <script src="{{ url('/assets/plugins/p-scroll/perfect-scrollbar.js') }}"></script>
 
     <!-- Color Theme js -->
-    <script src="{{url('/assets/js/themeColors.js')}}"></script>
+    <script src="{{ url('/assets/js/themeColors.js') }}"></script>
 
     <!-- CUSTOM JS -->
-    <script src="{{url('/assets/js/custom.js')}}"></script>
+    <script src="{{ url('/assets/js/custom.js') }}"></script>
 
-    @if(Session::get('status') == 'success')
-    <script>
-        $(document).ready(function() {
-            swal({
-                title: "{{Session::get('msg')}}",
-                type: "success"
+    @if (session()->get('status') == 'success')
+        <script>
+            $(document).ready(function() {
+                swal({
+                    title: "{{ session()->get('msg') }}",
+                    type: "success"
+                });
             });
-        });
-    </script>
-    @elseif(Session::get('status') == 'error')
-    <script>
-        $(document).ready(function() {
-            swal({
-                title: "{{Session::get('msg')}}",
-                type: "error"
+        </script>
+    @elseif(session()->get('status') == 'error')
+        <script>
+            $(document).ready(function() {
+                swal({
+                    title: "{{ session()->get('msg') }}",
+                    type: "error"
+                });
             });
-        });
-    </script>
+        </script>
     @endif
 
     @yield('scripts')

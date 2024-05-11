@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('barang_kode');
             $table->string('barang_nama');
             $table->string('barang_slug');
-            $table->string('barang_harga');
-            $table->string('barang_stok');
+            $table->integer('barang_harga');
+            $table->integer('barang_stok');
             $table->string('barang_gambar');
             $table->foreign('jenisbarang_id')->references('jenisbarang_id')->on('tbl_jenisbarang')->nullOnDelete();
             $table->foreign('satuan_id')->references('satuan_id')->on('tbl_satuan')->nullOnDelete();

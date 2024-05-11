@@ -188,7 +188,7 @@ class BarangController extends Controller
             $img = "image.png";
         } else {
             $image = $request->file('foto');
-            $image->storeAs('public/barang/', $image->hashName());
+            $image->storeAs('/public/barang', $image->hashName());
             $img = $image->hashName();
         }
 
@@ -220,7 +220,7 @@ class BarangController extends Controller
 
             //upload new image
             $image = $request->file('foto');
-            $image->storeAs('public/barang', $image->hashName());
+            $image->storeAs('/public/barang', $image->hashName());
 
             //delete old image
             Storage::delete('public/barang/' . $barang->barang_gambar);

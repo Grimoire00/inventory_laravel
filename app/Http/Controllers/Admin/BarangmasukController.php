@@ -25,7 +25,7 @@ class BarangmasukController extends Controller
     public function show(Request $request)
     {
         if ($request->ajax()) {
-            $data = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangmasuk.barang_kode')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->orderBy('bm_id', 'DESC')->get();
+            $data = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangmasuk.barang_id')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->orderBy('bm_id', 'DESC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('tgl', function ($row) {
@@ -47,6 +47,7 @@ class BarangmasukController extends Controller
                     $array = array(
                         "bm_id" => $row->bm_id,
                         "bm_kode" => $row->bm_kode,
+                        "barang_id" => $row->barang_id,
                         "barang_kode" => $row->barang_kode,
                         "supplier_id" => $row->supplier_id,
                         "bm_tanggal" => $row->bm_tanggal,
@@ -83,14 +84,17 @@ class BarangmasukController extends Controller
         }
     }
 
-    public function proses_tambah(Request $request)
+    public function proses_tambah(Request $request) 
     {
 
+$barang = BarangModel::where('barang_kode', $request->barang)->first();
         //insert data
+        // dd($request->all(),$barang,$barang->barang_id);
         BarangmasukModel::create([
             'bm_tanggal' => $request->tglmasuk,
             'bm_kode' => $request->bmkode,
-            'barang_kode' => $request->barang,
+            'barang_id' => $barang->barang_id,
+            // 'barang_kode' => $request->barang,
             'supplier_id'   => $request->supplier,
             'bm_jumlah'   => $request->jml,
         ]);

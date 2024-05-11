@@ -9,7 +9,7 @@ use App\Models\Admin\WebModel;
 use Illuminate\Support\Facades\Session;
 
 $web = WebModel::first();
-$appreance = AppreanceModel::where('user_id', '=', Session::get('user')->user_id)->first();
+$appreance = AppreanceModel::where('user_id', '=', session()->get('user')->user_id)->first();
 ?>
 
 <head>
@@ -292,20 +292,20 @@ $appreance = AppreanceModel::where('user_id', '=', Session::get('user')->user_id
     })
 </script>
 
-@if (Session::get('status') == 'success')
+@if (session()->get('status') == 'success')
     <script>
         $(document).ready(function() {
             swal({
-                title: "{{ Session::get('msg') }}",
+                title: "{{ session()->get('msg') }}",
                 type: "success"
             });
         });
     </script>
-@elseif(Session::get('status') == 'error')
+@elseif(session()->get('status') == 'error')
     <script>
         $(document).ready(function() {
             swal({
-                title: "{{ Session::get('msg') }}",
+                title: "{{ session()->get('msg') }}",
                 type: "error"
             });
         });
