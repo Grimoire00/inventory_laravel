@@ -192,8 +192,11 @@ class UserController extends Controller
         if ($request->hasFile('photoU')) {
 
             //upload new image
+            
             $image = $request->file('photoU');
-            $image->storeAs('public/users', $image->hashName());
+            // dd($image);
+            $image->storeAs('public/users/', $image->hashName());
+            
 
             //delete old image
             Storage::delete('public/users/' . $user->user_foto);

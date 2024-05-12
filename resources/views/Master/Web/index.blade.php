@@ -25,6 +25,7 @@
                             @if ($d->web_logo == '' || $d->web_logo == 'default.png')
                                 <img src="{{ url('assets/default/web/default.png') }}" alt="logo" width="120">
                             @else
+                                {{-- dd(src="{{ url('assets/default/web/default.png') }}") --}}
                                 <img src="{{ asset('storage/web/' . $d->web_logo) }}" alt="logo" width="120">
                             @endif
                         </div>

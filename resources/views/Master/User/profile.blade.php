@@ -78,8 +78,10 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Edit Profile</h3>
+                    src="{{ asset('storage/users/' . $data->user_foto) }}
                 </div>
-                <form action="{{ url('/admin/updateProfile') . '/' . $data->user_id }}" method="POST" name="myFormUpdate"
+                <form action="{{ url('/admin/updateProfile') . '/' . $data->user_id }}"
+                    method="POST" name="myFormUpdate"
                     enctype="multipart/form-data" onsubmit="return validateUpdate()">
                     @csrf
                     <div class="card-body">
@@ -110,145 +112,145 @@
                         <a href="{{ url('/admin/profile') }}/{{ session()->get('user')->user_id }}"
                             class="btn btn-danger my-1">Batal</a>
                     </div>
-                </form>
+                    </form>
+                </div>
+
             </div>
-
         </div>
-    </div>
-@endsection
+    @endsection
 
-@section('scripts')
-    <script>
-        function validatePassword() {
-            const current = document.forms["myFormP"]["currentpassword"].value;
-            const newp = document.forms["myFormP"]["newpassword"].value;
-            const confirm = document.forms["myFormP"]["confirmpassword"].value;
+    @section('scripts')
+        <script>
+            function validatePassword() {
+                const current = document.forms["myFormP"]["currentpassword"].value;
+                const newp = document.forms["myFormP"]["newpassword"].value;
+                const confirm = document.forms["myFormP"]["confirmpassword"].value;
 
-            resetValidP();
+                resetValidP();
 
-            if (current == "") {
-                validasi('Masukan Password Saat Ini!', 'warning');
-                $("input[name='currentpassword']").addClass('is-invalid');
-                return false;
-            }
-            if (newp == "") {
-                validasi('Masukan Password Baru!', 'warning');
-                $("input[name='newpassword']").addClass('is-invalid');
-                return false;
-            }
-            if (confirm == "") {
-                validasi('Masukan Konfirmasi Password!', 'warning');
-                $("input[name='confirmpassword']").addClass('is-invalid');
-                return false;
-            } else if (newp !== '' || confirm !== '') {
-
-                if (newp.length < 6) {
-                    validasi('Panjang Password minimal 6 karakter!', 'warning');
+                if (current == "") {
+                    validasi('Masukan Password Saat Ini!', 'warning');
+                    $("input[name='currentpassword']").addClass('is-invalid');
+                    return false;
+                }
+                if (newp == "") {
+                    validasi('Masukan Password Baru!', 'warning');
                     $("input[name='newpassword']").addClass('is-invalid');
+                    return false;
+                }
+                if (confirm == "") {
+                    validasi('Masukan Konfirmasi Password!', 'warning');
                     $("input[name='confirmpassword']").addClass('is-invalid');
                     return false;
-                } else if (newp !== confirm) {
-                    validasi('Konfirmasi Password tidak sesuai!', 'warning');
-                    $("input[name='newpassword']").addClass('is-invalid');
-                    $("input[name='confirmpassword']").addClass('is-invalid');
+                } else if (newp !== '' || confirm !== '') {
+
+                    if (newp.length < 6) {
+                        validasi('Panjang Password minimal 6 karakter!', 'warning');
+                        $("input[name='newpassword']").addClass('is-invalid');
+                        $("input[name='confirmpassword']").addClass('is-invalid');
+                        return false;
+                    } else if (newp !== confirm) {
+                        validasi('Konfirmasi Password tidak sesuai!', 'warning');
+                        $("input[name='newpassword']").addClass('is-invalid');
+                        $("input[name='confirmpassword']").addClass('is-invalid');
+                        return false;
+                    }
+                }
+            }
+
+            function validateUpdate() {
+                const nmlengkap = document.forms["myFormUpdate"]["nmlengkap"].value;
+                const username = document.forms["myFormUpdate"]["username"].value;
+                const email = document.forms["myFormUpdate"]["email"].value;
+
+                resetValid();
+
+                if (nmlengkap == "") {
+                    validasi('Nama Lengkap Wajib di isi!', 'warning');
+                    $("input[name='nmlengkap']").addClass('is-invalid');
+                    return false;
+                } else if (username == "") {
+                    validasi('Username Wajib di isi!', 'warning');
+                    $("input[name='username']").addClass('is-invalid');
+                    return false;
+                } else if (email == "") {
+                    validasi('Email Wajib di isi!', 'warning');
+                    $("input[name='email']").addClass('is-invalid');
                     return false;
                 }
             }
-        }
 
-        function validateUpdate() {
-            const nmlengkap = document.forms["myFormUpdate"]["nmlengkap"].value;
-            const username = document.forms["myFormUpdate"]["username"].value;
-            const email = document.forms["myFormUpdate"]["email"].value;
+            function resetValidP() {
+                $("input[name='currentpassword']").removeClass('is-invalid');
+                $("input[name='newpassword']").removeClass('is-invalid');
+                $("input[name='confirmpassword']").removeClass('is-invalid');
+            };
 
-            resetValid();
+            function resetValid() {
+                $("input[name='nmlengkap']").removeClass('is-invalid');
+                $("input[name='username']").removeClass('is-invalid');
+                $("input[name='email']").removeClass('is-invalid');
+            };
 
-            if (nmlengkap == "") {
-                validasi('Nama Lengkap Wajib di isi!', 'warning');
-                $("input[name='nmlengkap']").addClass('is-invalid');
-                return false;
-            } else if (username == "") {
-                validasi('Username Wajib di isi!', 'warning');
-                $("input[name='username']").addClass('is-invalid');
-                return false;
-            } else if (email == "") {
-                validasi('Email Wajib di isi!', 'warning');
-                $("input[name='email']").addClass('is-invalid');
-                return false;
+            function resetP() {
+                resetValidP();
+                $("input[name='currentpassword']").val('');
+                $("input[name='newpassword']").val('');
+                $("input[name='confirmpassword']").val('');
             }
-        }
 
-        function resetValidP() {
-            $("input[name='currentpassword']").removeClass('is-invalid');
-            $("input[name='newpassword']").removeClass('is-invalid');
-            $("input[name='confirmpassword']").removeClass('is-invalid');
-        };
-
-        function resetValid() {
-            $("input[name='nmlengkap']").removeClass('is-invalid');
-            $("input[name='username']").removeClass('is-invalid');
-            $("input[name='email']").removeClass('is-invalid');
-        };
-
-        function resetP() {
-            resetValidP();
-            $("input[name='currentpassword']").val('');
-            $("input[name='newpassword']").val('');
-            $("input[name='confirmpassword']").val('');
-        }
-
-        function validasi(judul, status) {
-            swal({
-                title: judul,
-                type: status,
-                confirmButtonText: "OK"
-            });
-        }
-
-        function fileIsValid(fileName) {
-            var ext = fileName.match(/\.([^\.]+)$/)[1];
-            ext = ext.toLowerCase();
-            var isValid = true;
-            switch (ext) {
-                case 'png':
-                case 'jpeg':
-                case 'jpg':
-                case 'svg':
-                    break;
-                default:
-                    this.value = '';
-                    isValid = false;
+            function validasi(judul, status) {
+                swal({
+                    title: judul,
+                    type: status,
+                    confirmButtonText: "OK"
+                });
             }
-            return isValid;
-        }
 
-        function VerifyFileNameAndFileSize() {
-            var file = document.getElementById('GetFile').files[0];
-
-
-            if (file != null) {
-                var fileName = file.name;
-                if (fileIsValid(fileName) == false) {
-                    validasi('Format bukan gambar!', 'warning');
-                    document.getElementById('GetFile').value = null;
-                    return false;
-                }
-                var content;
-                var size = file.size;
-                if ((size != null) && ((size / (1024 * 1024)) > 3)) {
-                    validasi('Ukuran maximum 1024px', 'warning');
-                    document.getElementById('GetFile').value = null;
-                    return false;
-                }
-
+            function fileIsValid(fileName) {
                 var ext = fileName.match(/\.([^\.]+)$/)[1];
                 ext = ext.toLowerCase();
-                // $(".custom-file-label").addClass("selected").html(file.name);
-                // document.getElementById('outputImg').src = window.URL.createObjectURL(file);
-                return true;
+                var isValid = true;
+                switch (ext) {
+                    case 'png':
+                    case 'jpeg':
+                    case 'jpg':
+                    case 'svg':
+                        break;
+                    default:
+                        this.value = '';
+                        isValid = false;
+                }
+                return isValid;
+            }
 
-            } else
-                return false;
-        }
-    </script>
-@endsection
+            function VerifyFileNameAndFileSize() {
+                var file = document.getElementById('GetFile').files[0];
+
+
+                if (file != null) {
+                    var fileName = file.name;
+                    if (fileIsValid(fileName) == false) {
+                        validasi('Format bukan gambar!', 'warning');
+                        document.getElementById('GetFile').value = null;
+                        return false;
+                    }
+                    var content;
+                    var size = file.size;
+                    if ((size != null) && ((size / (1024 * 1024)) > 3)) {
+                        validasi('Ukuran maximum 1024px', 'warning');
+                        document.getElementById('GetFile').value = null;
+                        return false;
+                    }
+
+                    var ext = fileName.match(/\.([^\.]+)$/)[1];
+                    ext = ext.toLowerCase();
+                    // $(".custom-file-label").addClass("selected").html(file.name);
+                    // document.getElementById('outputImg').src = window.URL.createObjectURL(file);
+                    return true;
+
+                } else
+                    return false;
+            }
+        </script>
+    @endsection
