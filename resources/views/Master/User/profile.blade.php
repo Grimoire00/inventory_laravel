@@ -89,7 +89,7 @@
                                 id="nmlengkap" placeholder="Nama Lengkap">
                         </div>
                         <div class="form-group">
-                            <label for="username">Nama User</label>
+                            <label for="username">Username</label>
                             <input type="text" name="username" value="{{ $data->user_nama }}" class="form-control"
                                 id="username" placeholder="Nama User">
                         </div>
@@ -168,7 +168,7 @@
                 $("input[name='nmlengkap']").addClass('is-invalid');
                 return false;
             } else if (username == "") {
-                validasi('Nama User Wajib di isi!', 'warning');
+                validasi('Username Wajib di isi!', 'warning');
                 $("input[name='username']").addClass('is-invalid');
                 return false;
             } else if (email == "") {

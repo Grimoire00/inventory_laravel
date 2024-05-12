@@ -3,15 +3,16 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header">
-        <h1 class="page-title">Jenis Barang</h1>
+        <h1 class="page-title">Perhitungan Min Max</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item text-gray">Master Barang</li>
-                <li class="breadcrumb-item active" aria-current="page">Jenis Barang</li>
+                <li class="breadcrumb-item text-gray">Admin</li>
+                <li class="breadcrumb-item active" aria-current="page">Customer</li>
             </ol>
         </div>
     </div>
     <!-- PAGE-HEADER END -->
+
 
     <!-- ROW -->
     <div class="row row-sm">
@@ -33,8 +34,9 @@
                             class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
                             <thead>
                                 <th class="border-bottom-0" width="1%">No</th>
-                                <th class="border-bottom-0">Jenis Barang</th>
-                                <th class="border-bottom-0">Keterangan</th>
+                                <th class="border-bottom-0">Costomer</th>
+                                <th class="border-bottom-0">No Telp</th>
+                                <th class="border-bottom-0">Alamat</th>
                                 <th class="border-bottom-0" width="1%">Action</th>
                             </thead>
                             <tbody></tbody>
@@ -46,20 +48,21 @@
     </div>
     <!-- END ROW -->
 
-    @include('Admin.JenisBarang.tambah')
-    @include('Admin.JenisBarang.edit')
-    @include('Admin.JenisBarang.hapus')
+    @include('Admin.Customer.tambah')
+    @include('Admin.Customer.edit')
+    @include('Admin.Customer.hapus')
 
     <script>
         function update(data) {
-            $("input[name='idjenisbarangU']").val(data.jenisbarang_id);
-            $("input[name='jenisbarangU']").val(data.jenisbarang_nama.replace(/_/g, ' '));
-            $("textarea[name='ketU']").val(data.jenisbarang_ket.replace(/_/g, ' '));
+            $("input[name='idcustomerU']").val(data.customer_id);
+            $("input[name='customerU']").val(data.customer_nama.replace(/_/g, ' '));
+            $("input[name='notelpU']").val(data.customer_notelp);
+            $("textarea[name='alamatU']").val(data.customer_alamat.replace(/_/g, ' '));
         }
 
         function hapus(data) {
-            $("input[name='idjenisbarang']").val(data.jenisbarang_id);
-            $("#vjenisbarang").html("jenis " + "<b>" + data.jenisbarang_nama.replace(/_/g, ' ') + "</b>");
+            $("input[name='idcustomer']").val(data.customer_id);
+            $("#vcustomer").html("customer " + "<b>" + data.customer_nama.replace(/_/g, ' ') + "</b>");
         }
 
         function validasi(judul, status) {
@@ -88,8 +91,8 @@
                 "processing": true,
                 "serverSide": true,
                 "info": true,
-                "stateSave": true,
                 "order": [],
+                "stateSave": true,
                 "lengthMenu": [
                     [5, 10, 25, 50, 100],
                     [5, 10, 25, 50, 100]
@@ -99,7 +102,7 @@
                 lengthChange: true,
 
                 "ajax": {
-                    "url": "{{ route('jenisbarang.getjenisbarang') }}",
+                    "url": "{{ route('customer.getcustomer') }}",
                 },
 
                 "columns": [{
@@ -108,12 +111,16 @@
                         searchable: false
                     },
                     {
-                        data: 'jenisbarang_nama',
-                        name: 'jenisbarang_nama',
+                        data: 'customer_nama',
+                        name: 'customer_nama',
                     },
                     {
-                        data: 'ket',
-                        name: 'jenisbarang_ket',
+                        data: 'notelp',
+                        name: 'customer_notelp',
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'customer_alamat',
                     },
                     {
                         data: 'action',
@@ -124,7 +131,6 @@
                 ],
 
             });
-
         });
     </script>
 @endsection

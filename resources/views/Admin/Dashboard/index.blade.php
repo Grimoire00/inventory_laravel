@@ -4,19 +4,13 @@
     <!-- PAGE-HEADER -->
     <div class="page-header">
         <h1 class="page-title">Dashboard</h1>
-        <div>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item text-gray">Admin</li>
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-            </ol>
-        </div>
     </div>
     <!-- PAGE-HEADER END -->
 
     <!-- ROW 1 OPEN -->
     <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-primary img-card box-primary-shadow">
+            <a href="{{ url('admin/jenisbarang') }}" class="card bg-primary img-card box-primary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -26,11 +20,11 @@
                         <div class="ms-auto"> <i class="fe fe-package text-white fs-40 me-2 mt-2"></i> </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- COL END -->
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-secondary img-card box-secondary-shadow">
+            <a href="{{ url('admin/satuan') }}" class="card bg-secondary img-card box-secondary-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -40,11 +34,11 @@
                         <div class="ms-auto"> <i class="fe fe-package text-white fs-40 me-2 mt-2"></i> </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- COL END -->
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card  bg-success img-card box-success-shadow">
+            <a href="{{ url('admin/merk') }}" class="card  bg-success img-card box-success-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -54,11 +48,11 @@
                         <div class="ms-auto"> <i class="fe fe-package text-white fs-40 me-2 mt-2"></i> </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- COL END -->
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-info img-card box-info-shadow">
+            <a href="{{ url('admin/barang') }}" class="card bg-info img-card box-info-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -68,11 +62,11 @@
                         <div class="ms-auto"> <i class="fe fe-package text-white fs-40 me-2 mt-2"></i> </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- COL END -->
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-success img-card box-success-shadow">
+            <a href="{{ url('admin/barang-masuk') }}" class="card bg-success img-card box-success-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -82,11 +76,11 @@
                         <div class="ms-auto"> <i class="fe fe-repeat text-white fs-40 me-2 mt-2"></i> </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- COL END -->
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-danger img-card box-danger-shadow">
+            <a href="{{ url('admin/barang-keluar') }}" class="card bg-danger img-card box-danger-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -96,11 +90,11 @@
                         <div class="ms-auto"> <i class="fe fe-repeat text-white fs-40 me-2 mt-2"></i> </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- COL END -->
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-purple img-card box-purple-shadow">
+            <a href="{{ url('admin/customer') }}" class="card bg-purple img-card box-purple-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -110,11 +104,11 @@
                         <div class="ms-auto"> <i class="fe fe-user text-white fs-40 me-2 mt-2"></i> </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <!-- COL END -->
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-warning img-card box-warning-shadow">
+            <a href="{{ url('admin/user') }}" class="card bg-warning img-card box-warning-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -124,10 +118,10 @@
                         <div class="ms-auto"> <i class="fe fe-user text-white fs-40 me-2 mt-2"></i> </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-orange img-card box-warning-shadow">
+            <a href="{{ url('admin/supplier') }}" class="card bg-orange img-card box-warning-shadow">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="text-white">
@@ -137,7 +131,7 @@
                         <div class="ms-auto"> <i class="fe fe-user text-white fs-40 me-2 mt-2"></i> </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
             <div class="card bg-black img-card box-warning-shadow">
@@ -174,7 +168,7 @@
                         <div class="text-white">
                             <h3 class="mb-0 number-font" style="font-size:26px">O'clock:</h3>
                             <a href="https://time.is/Bandung" id="time_is_link" rel="nofollow" style="font-size:15px"
-                                class="text-white">Bandung,</a>
+                                class="text-white">Surabaya,</a>
                             <span id="Bandung_z41c" style="font-size:15px" class="text-warning"></span>
                             <script src="//widget.time.is/t.js"></script>
                             <script>
