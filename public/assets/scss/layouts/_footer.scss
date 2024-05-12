@@ -1,6 +1,7 @@
 .footer {
     background: transparent;
     font-size: 0.875rem;
+    // font-size: 1rem;
     padding: 1.25rem 1.25rem;
     border-top: 1px solid $black-1;
     .container {
@@ -67,7 +68,7 @@
         height: 80px;
         &:hover {
             color: #8e9090;
-            opacity: .6;
+            opacity: 0.6;
         }
     }
     .list-unstyled li {
@@ -91,7 +92,7 @@
         text-decoration: none;
         font-size: 2rem;
         &:hover {
-            opacity: .9;
+            opacity: 0.9;
         }
     }
 }

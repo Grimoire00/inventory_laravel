@@ -20,6 +20,7 @@ class WebTableSeeder extends Seeder
             [
                 [
                     'web_nama' => 'Jazeera',
+                    // 'web_logo' => 'alipay.svg',
                     'web_logo' => 'alipay.svg',
                     'web_deskripsi' => null,
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

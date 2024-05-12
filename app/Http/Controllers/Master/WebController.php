@@ -25,10 +25,10 @@ class WebController extends Controller
 
             //upload new image
             $image = $request->file('photo');
-            $image->storeAs('public/web', $image->hashName());
+            $image->storeAs('public/web/assets/logo', $image->hashName());
 
             //delete old image
-            Storage::delete('public/web/' . $web->web_logo);
+            Storage::delete('public/web/assets/logo' . $web->web_logo);
 
             //update post with new image
             $web->update([

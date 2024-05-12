@@ -33,7 +33,7 @@
                          </div>
                      </div>
                  @else
-                     <img src="{{ asset('storage/web/' . $web->web_logo) }}" height="40px"
+                     <img src="{{ url('/assets/default/web/default.png') }}" height="40px"
                          class="header-brand-img toggle-logo" alt="logo">
                      <div class="header-brand-img desktop-logo">
                          <div class="d-flex align-items-center">
@@ -42,11 +42,11 @@
                              <h4 class="fw-bold mt-4 text-white text-uppercase text-truncate">{{ $web->web_nama }}</h4>
                          </div>
                      </div>
-                     <img src="{{ asset('storage/web/' . $web->web_logo) }}" height="40px"
+                     <img src="{{ url('/assets/default/web/default.png') }}" height="40px"
                          class="header-brand-img light-logo" alt="logo">
                      <div class="header-brand-img light-logo1">
                          <div class="d-flex align-items-center">
-                             <img src="{{ asset('storage/web/' . $web->web_logo) }}" height="40px" class="me-1"
+                             <img src="{{ url('/assets/default/web/default.png') }}" height="40px" class="me-1"
                                  alt="logo">
                              <h4 class="fw-bold mt-4 text-black text-uppercase text-truncate">{{ $web->web_nama }}</h4>
                          </div>

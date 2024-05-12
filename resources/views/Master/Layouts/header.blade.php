@@ -11,25 +11,27 @@
             <a class="logo-horizontal" href="{{ url('/') }}">
                 <div class="header-brand-img desktop-logo">
                     <div class="d-flex justify-content-center align-items-center">
-                        @if ($web->web_logo == '' || $web->web_logo == 'default.png')
-                            <img src="{{ url('/assets/default/web/default.png') }}" height="40px" class="me-1"
-                                alt="logo">
-                        @else
+                        {{-- @if ($web->web_logo == '' || $web->web_logo == 'default.png') --}}
+
+                        <img src="{{ url('assets/default/web/default.png') }}" height="40px" class="me-1"
+                            alt="logo">
+                        {{-- @else
                             <img src="{{ asset('storage/web/' . $web->web_logo) }}" height="40px" class="me-1"
                                 alt="logo">
-                        @endif
+                        @endif --}}
                         <h4 class="fw-bold mt-4 text-white text-uppercase text-truncate">{{ $web->web_nama }}</h4>
                     </div>
                 </div>
                 <div class="header-brand-img light-logo1">
                     <div class="d-flex justify-content-center align-items-center">
-                        @if ($web->web_logo == '' || $web->web_logo == 'default.png')
-                            <img src="{{ url('/assets/default/web/default.png') }}" height="40px" class="me-1"
-                                alt="logo">
-                        @else
+                        {{-- @if ($web->web_logo == '' || $web->web_logo == 'default.png') --}}
+
+                        <img src="{{ url('/assets/default/web/default.png') }}" height="40px" class="me-1"
+                            alt="logo">
+                        {{-- @else
                             <img src="{{ asset('storage/web/' . $web->web_logo) }}" height="40px" class="me-1"
                                 alt="logo">
-                        @endif
+                        @endif --}}
                         <h4 class="fw-bold mt-4 text-black text-uppercase text-truncate">{{ $web->web_nama }}</h4>
                     </div>
                 </div>

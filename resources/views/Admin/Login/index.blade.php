@@ -4,16 +4,22 @@
     <div class="container-login100">
         <div class="wrap-login100 p-6">
             <div class="d-flex justify-content-center align-items-center">
-                @if ($web->web_logo == '' || $web->web_logo == 'default.png')
-                    <img src="{{ url('/assets/default/web/default.png') }}" height="75px" class="" alt="logo">
-                @else
+                {{-- @if ($web->web_logo == '' || $web->web_logo == 'default.png') --}}
+
+                <img src="{{ url('/assets/default/web/default.png') }}" height="75px" class="" alt="logo">
+                {{-- @else
                     <img src="{{ asset('storage/web/' . $web->web_logo) }}" height="75px" class="" alt="logo">
-                @endif
+                @endif --}}
+
+
             </div>
             <div class="text-center">
                 <h4 class="fw-bold mt-4 text-black text-uppercase text-truncate">{{ $web->web_nama }} <span
                         class="text-gray">| LOGIN</span></h4>
+
+                {{-- {{ url('/assets/default/web/default.png') }} --}}
             </div>
+
             <form class="login100-form validate-form" method="POST" name="myForm" action="{{ url('admin/proseslogin') }}"
                 enctype="multipart/form-data" onsubmit="return validateForm()">
                 @csrf
@@ -40,8 +46,8 @@
                                         placeholder="Password" autocomplete="off">
                                 </div>
                                 <!-- <div class="text-end pt-4">
-                                    <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Forgot Password?</a></p>
-                                </div> -->
+                                                                <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Forgot Password?</a></p>
+                                                            </div> -->
                                 <div class="container-login100-form-btn">
                                     <button type="button" class="login100-form-btn btn btn-primary d-none" id="btnLoader"
                                         type="button" disabled="">

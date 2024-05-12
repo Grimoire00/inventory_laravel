@@ -34167,8 +34167,8 @@ License: MIT
     top: 0;
     left: 0;
     display: inline-block;
-    *display: inline;
-    *zoom: 1;
+    /* display: inline;
+    zoom: 1; */
     /* https://github.com/bgrins/spectrum/issues/40 */
     z-index: 9999994;
     overflow: hidden;
@@ -47397,7 +47397,7 @@ ul.timeline>li:before {
 
 /* ######## LAYOUT-STYLES ######## */
 .footer {
-    background: transparent;
+    background: trasnparant;
     font-size: 0.875rem;
     padding: 1.25rem 1.25rem;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
