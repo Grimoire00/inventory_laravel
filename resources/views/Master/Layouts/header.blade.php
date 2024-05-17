@@ -142,9 +142,9 @@
                                         href="{{ url('/admin/profile') }}/{{ session()->get('user')->user_id }}">
                                         <i class="dropdown-icon fe fe-user"></i> Profile
                                     </a>
-                                    <a class="dropdown-item" href="{{ url('/admin/appreance') }}">
+                                    {{-- <a class="dropdown-item" href="{{ url('/admin/appreance') }}">
                                         <i class="dropdown-icon fe fe-layout"></i> Tampilan / Tema
-                                    </a>
+                                    </a> --}}
                                     <a class="dropdown-item" data-bs-effect="effect-super-scaled"
                                         data-bs-toggle="modal" href="#modalLogout">
                                         <i class="dropdown-icon fe fe-log-out"></i> Log out

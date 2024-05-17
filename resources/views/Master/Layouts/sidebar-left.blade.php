@@ -119,7 +119,6 @@
                  <?php $getSettingUser = AksesModel::where(['role_id' => session()->get('user')->role_id, 'othermenu_id' => 4, 'akses_type' => 'view'])->count(); ?>
                  <?php $getSettingAkses = AksesModel::where(['role_id' => session()->get('user')->role_id, 'othermenu_id' => 5, 'akses_type' => 'view'])->count(); ?>
                  <?php $getSettingWeb = AksesModel::where(['role_id' => session()->get('user')->role_id, 'othermenu_id' => 6, 'akses_type' => 'view'])->count(); ?>
-
                  @if ($getSetting > 0)
                      <li
                          class="slide {{ $title == 'Menu' || $title == 'Role' || $title == 'User' || $title == 'Akses' || $title == 'Web' ? 'is-expanded' : '' }}">

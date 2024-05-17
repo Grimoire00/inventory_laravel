@@ -45,6 +45,11 @@ class BarangModel extends Model
         return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
     }
 
+    public function tbl_minmax(): BelongsTo
+    {
+        return $this->belongsTo(UserModel::class, 'mm_id', 'mm_id');
+    }
+
     public function barangmasuks(): HasMany
     {
         return $this->hasMany(BarangmasukModel::class, 'bm_id', 'bm_id');

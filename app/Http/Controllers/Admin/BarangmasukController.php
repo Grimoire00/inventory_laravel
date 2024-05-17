@@ -50,7 +50,7 @@ class BarangmasukController extends Controller
                         "barang_id" => $row->barang_id,
                         "barang_kode" => $row->barang_kode,
                         "supplier_id" => $row->supplier_id,
-                        "bm_tanggal" => $row->bm_tanggal,
+                        "bm_tanggal" => date('Y-m-d', strtotime($row->bm_tanggal)),
                         "bm_jumlah" => $row->bm_jumlah
                     );
                     $button = '';

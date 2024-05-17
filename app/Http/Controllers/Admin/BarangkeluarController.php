@@ -54,7 +54,7 @@ class BarangkeluarController extends Controller
                         "bk_kode" => $row->bk_kode,
                         "barang_kode" => $row->barang_kode,
                         "customer_id" => $row->customer_id,
-                        "bk_tanggal" => $row->bk_tanggal,
+                        "bk_tanggal" => date('Y-m-d', strtotime($row->bm_tanggal)),
                         "bk_tujuan" => trim(preg_replace('/[^A-Za-z0-9-]+/', '_', $row->bk_tujuan)),
                         "bk_jumlah" => $row->bk_jumlah
                     );

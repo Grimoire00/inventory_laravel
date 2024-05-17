@@ -55,7 +55,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('satuan.store') }}",
+                url: "{{ route('satuan.store-data') }}",
                 enctype: 'multipart/form-data',
                 data: {
                     satuan: satuan,
