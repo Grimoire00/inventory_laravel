@@ -5,7 +5,7 @@ namespace App\Models\Admin;
 use App\Models\Admin\MerkModel;
 use App\Models\Admin\UserModel;
 use App\Models\Admin\SatuanModel;
-use App\Models\PemesananBarangModel;
+use App\Models\Admin\PemesananBarangModel;
 
 
 use App\Models\Admin\BarangmasukModel;
@@ -66,5 +66,10 @@ class BarangModel extends Model
     public function barangkeluars(): HasMany
     {
         return $this->hasMany(BarangkeluarModel::class, 'bk_id', 'bk_id');
+    }
+
+    public function pemesanans(): HasMany
+    {
+        return $this->hasMany(PemesananBarangModel::class, 'pesan_id', 'pesan_id');
     }
 }

@@ -15,15 +15,16 @@ return new class extends Migration
     {
         Schema::create('tbl_pemesanan', function (Blueprint $table) {
             $table->bigIncrements('pesan_id');
-            // $table->unsignedBigInteger('barang_id')->nullable();
             $table->unsignedBigInteger('barang_id')->nullable();
-            // $table->unsignedBigInteger('customer_id')->nullable();
+            $table->unsignedBigInteger('supplier_id')->nullable();
             $table->string('pesan_kode');
+            $table->string('barang_kode');
             $table->integer('pesan_jumlah');
             $table->integer('pesan_totalharga');
             $table->timestamp('pesan_tanggal');
-            $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED']);
+            $table->enum('pesan_status', ['PENDING', 'APPROVED', 'REJECTED']);
             $table->foreign('barang_id')->references('barang_id')->on('tbl_barang')->nullOnDelete();
+            $table->foreign('supplier_id')->references('supplier_id')->on('tbl_supplier')->nullOnDelete();
             $table->timestamps();
         });
     }

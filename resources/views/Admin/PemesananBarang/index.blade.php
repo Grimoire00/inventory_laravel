@@ -3,7 +3,7 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header">
-        <h1 class="page-title">Barang Masuk</h1>
+        <h1 class="page-title">Pemesanan Barang</h1>
 
     </div>
     <!-- PAGE-HEADER END -->
@@ -29,12 +29,13 @@
                             class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
                             <thead>
                                 <th class="border-bottom-0" width="1%">No</th>
-                                <th class="border-bottom-0">Tanggal Pesan</th>
-                                <th class="border-bottom-0">Kode Pemesanan Barang</th>
+                                <th class="border-bottom-0">Tanggal Pemesanan</th>
+                                <th class="border-bottom-0">Kode Pemesanan</th>
                                 <th class="border-bottom-0">Kode Barang</th>
+                                <th class="border-bottom-0">Barang</th>
+                                <th class="border-bottom-0">Qty</th>
+                                <th class="border-bottom-0">TotalHarga</th>
                                 <th class="border-bottom-0">Supplier</th>
-                                <th class="border-bottom-0">Nama Barang</th>
-                                <th class="border-bottom-0">Jumlah Pesan</th>
                                 <th class="border-bottom-0">Status</th>
                                 <th class="border-bottom-0" width="1%">Action</th>
                             </thead>
@@ -55,19 +56,19 @@
     <script>
         function generateID() {
             id = new Date().getTime();
-            $("input[name='bmkode']").val("BM-" + id);
+            $("input[name='pbkode']").val("PB-" + id);
         }
 
         function update(data) {
-            $("input[name='idbmU']").val(data.bm_id);
-            $("input[name='bmkodeU']").val(data.bm_kode);
+            $("input[name='pbbmU']").val(data.pb_id);
+            $("input[name='pbkodeU']").val(data.pb_kode);
             $("input[name='kdbarangU']").val(data.barang_kode);
             $("select[name='supplierU']").val(data.supplier_id);
-            $("input[name='jmlU']").val(data.bm_jumlah);
+            $("input[name='jmlU']").val(data.pb_jumlah);
 
             getbarangbyidU(data.barang_kode);
 
-            $("input[name='tglmasukU").bootstrapdatepicker({
+            $("input[name='tglpesanU").bootstrapdatepicker({
                 format: 'yyyy-mm-dd',
                 autoclose: true
             }).bootstrapdatepicker("update", data.bm_tanggal);
@@ -116,7 +117,7 @@
                 lengthChange: true,
 
                 "ajax": {
-                    "url": "{{ route('barang-masuk.getbarang-masuk') }}",
+                    "url": "{{ route('pemesanan-barang.getpemesanan-barang') }}",
                 },
 
                 "columns": [{
@@ -126,27 +127,35 @@
                     },
                     {
                         data: 'tgl',
-                        name: 'bm_tanggal',
+                        name: 'pb_tanggal',
                     },
                     {
-                        data: 'bm_kode',
-                        name: 'bm_kode',
+                        data: 'pb_kode',
+                        name: 'pb_kode',
                     },
                     {
                         data: 'barang_kode',
                         name: 'barang_kode',
                     },
                     {
-                        data: 'supplier',
-                        name: 'supplier_nama',
-                    },
-                    {
                         data: 'barang',
                         name: 'barang_nama',
                     },
                     {
-                        data: 'bm_jumlah',
-                        name: 'bm_jumlah',
+                        data: 'pb_jumlah',
+                        name: 'qty',
+                    },
+                    {
+                        data: 'total_harga',
+                        name: 'total_harga',
+                    },
+                    {
+                        data: 'supplier',
+                        name: 'supplier',
+                    },
+                    {
+                        data: 'pstatus',
+                        name: 'pstatus',
                     },
                     {
                         data: 'action',

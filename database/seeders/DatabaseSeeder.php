@@ -21,11 +21,11 @@ class DatabaseSeeder extends Seeder
             AksesTableSeeder::class,
             WebTableSeeder::class,
             JenisBarangTableSeeder::class,
-            // BarangTableSeeder::class,
             SubmenuTableSeeder::class,
             SatuanBarangTableSeeder::class,
             MerkBarangTableSeeder::class,
             SupplierTableSeeder::class,
+            BarangTableSeeder::class,
             CustomerTableSeeder::class
         ]);
     }

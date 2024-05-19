@@ -20,6 +20,7 @@ use App\Http\Controllers\Master\AppreanceController;
 use App\Http\Controllers\Admin\BarangmasukController;
 use App\Http\Controllers\Admin\JenisBarangController;
 use App\Http\Controllers\Admin\BarangkeluarController;
+use App\Http\Controllers\Admin\KonfirmasiPemesananController;
 use App\Http\Controllers\Admin\LapStokBarangController;
 use App\Http\Controllers\Admin\LapBarangMasukController;
 use App\Http\Controllers\Admin\LapBarangKeluarController;
@@ -196,13 +197,13 @@ Route::group(['middleware' => 'userlogin'], function () {
             Route::post('/admin/pemesanan-barang/proses_tambah/', [PemesananBarangController::class, 'proses_tambah'])->name('pemesanan-barang.store');
             Route::post('/admin/pemesanan-barang/proses_ubah/{pemesananbarang}', [PemesananBarangController::class, 'proses_ubah']);
             Route::post('/admin/pemesanan-barang/proses_hapus/{pemesananbarangx`}', [PemesananBarangController::class, 'proses_hapus']);
-            // Route::get('/admin/barang/getbarang/{id}', [BarangController::class, 'getbarang']);
-            // Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
+            Route::get('/admin/barang/getbarang/{id}', [BarangController::class, 'getbarang']);
+            Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
         });
 
         // Route::middleware(['checkRoleUser:/konfirmasi-pemesanan,submenu'])->group(function () {
         //     // Konfirmasi Pemesanan
-        //     Route::resource('/admin/konfirmasi-pemesanan', KonfirmasiBarangController::class)->except('store');
+            Route::resource('/admin/konfirmasi-pemesanan', KonfirmasiPemesananController::class)->except('store');
         //     Route::get('/admin/konfirmasi-pemesanan/show/', [KonfirmasiBarangController::class, 'show'])->name('konfirmasi-pemesanan.getkonfirmasi-pemesanan');
         //     Route::post('/admin/konfirmasi-pemesanan/proses_tambah/', [KonfirmasiBarangController::class, 'proses_tambah'])->name('konfirmasi-pemesanan.store');
         //     Route::post('/admin/konfirmasi-pemesanan/proses_ubah/{barangmasuk}', [KonfirmasiBarangController::class, 'proses_ubah']);

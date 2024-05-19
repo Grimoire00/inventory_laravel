@@ -19,6 +19,7 @@ class submenuTableSeeder extends Seeder
         DB::table('tbl_submenu')->insert(
             [
                 // submenu
+                // Master Barang
                 [
                     'submenu_id' => '1667444051',
                     'menu_id' => '1667444044',
@@ -58,9 +59,20 @@ class submenuTableSeeder extends Seeder
                     'submenu_sort' => 4,                
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-                ],                    
+                ],
                 [
                     'submenu_id' => '1667444055',
+                    'menu_id' => '1667444044',
+                    'submenu_judul' => 'Min Max',
+                    'submenu_slug' => 'min-max',                    
+                    'submenu_redirect' => '',
+                    'submenu_sort' => 5,                
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ],                    
+                // Data Manajemen Barang
+                [
+                    'submenu_id' => '1667444056',
                     'menu_id' => '1667444045',
                     'submenu_judul' => 'Barang Masuk',
                     'submenu_slug' => 'barang-masuk',                    
@@ -70,7 +82,7 @@ class submenuTableSeeder extends Seeder
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],                            
                 [
-                    'submenu_id' => '1667444056',
+                    'submenu_id' => '1667444057',
                     'menu_id' => '1667444045',
                     'submenu_judul' => 'Barang Keluar',
                     'submenu_slug' => 'barang-keluar',                    
@@ -79,28 +91,30 @@ class submenuTableSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],             
+                // Pemesanan Barang
                 [
-                    'submenu_id' => '1667444057',
+                    'submenu_id' => '1667444058',
                     'menu_id' => '1667444046',
                     'submenu_judul' => 'Pemesanan Barang',
                     'submenu_slug' => 'pemesanan-barang',                    
-                    'submenu_redirect' => '',
+                    'submenu_redirect' => '/pemesanan-barang',
                     'submenu_sort' => 1,                
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],                            
                 [
-                    'submenu_id' => '1667444058',
+                    'submenu_id' => '1667444059',
                     'menu_id' => '1667444046',
                     'submenu_judul' => 'Konfirmasi Pemesanan',
                     'submenu_slug' => 'konfirmasi-pemesanan',                    
-                    'submenu_redirect' => '',
+                    'submenu_redirect' => '/konfirmasi-pemesanan',
                     'submenu_sort' => 2,                
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],            
+                // laporan
                 [
-                    'submenu_id' => '1667444059',
+                    'submenu_id' => '1667444060',
                     'menu_id' => '1667444047',
                     'submenu_judul' => 'Lap. Barang Masuk',
                     'submenu_slug' => 'laporan-barang-masuk',                    
@@ -110,7 +124,7 @@ class submenuTableSeeder extends Seeder
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],                        
                 [
-                    'submenu_id' => '1667444060',
+                    'submenu_id' => '1667444061',
                     'menu_id' => '1667444047',
                     'submenu_judul' => 'Lap. Barang Keluar',
                     'submenu_slug' => 'laporan-barang-keluar',                    
@@ -120,7 +134,7 @@ class submenuTableSeeder extends Seeder
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],                        
                 [
-                    'submenu_id' => '1667444061',
+                    'submenu_id' => '1667444062',
                     'menu_id' => '1667444047',
                     'submenu_judul' => 'Lap. Stok Barang',
                     'submenu_slug' => 'laporan-stok-barang',                    
@@ -131,7 +145,7 @@ class submenuTableSeeder extends Seeder
                 ],
                 
                 [
-                    'submenu_id' => '1667444062',
+                    'submenu_id' => '1667444063',
                     'menu_id' => '1667444047',
                     'submenu_judul' => 'Lap. Pemesanan Barang',
                     'submenu_slug' => 'laporan-pemesanan-barang',                    

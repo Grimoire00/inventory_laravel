@@ -22,4 +22,8 @@ class SupplierModel extends Model
     {
         return $this->hasMany(BarangmasukModel::class, 'bm_id', 'bm_id');
     }
+    public function pemesanans(): HasMany
+    {
+        return $this->hasMany(PemesananBarangModel::class, 'pesan_id', 'pesan_id');
+    }
 }

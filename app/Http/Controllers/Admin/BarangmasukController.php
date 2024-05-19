@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\AksesModel;
 use App\Models\Admin\BarangmasukModel;
 use App\Models\Admin\BarangModel;
+use App\Models\Admin\CustomerModel;
 use App\Models\Admin\SupplierModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -101,6 +102,16 @@ $barang = BarangModel::where('barang_kode', $request->barang)->first();
         ]);
 
         return response()->json(['success' => 'Berhasil']);
+    }
+
+    public function getCustomerAlamat($customer_id)
+    {
+        $customer = CustomerModel::find($customer_id);
+        if ($customer) {
+            return response()->json(['success' => true, 'alamat' => $customer->customer_alamat]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
     

@@ -113,7 +113,7 @@ class BarangkeluarController extends Controller
         $barangkeluar->update([
             'bk_tanggal' => $request->tglkeluar,
             'bk_kode' => $request->bkkode,
-            'barang_kode' => $request->barang,
+            // 'barang_kode' => $request->barang,
             'customer_id' => $request->customer,
             'bk_tujuan'   => $request->tujuan,
             'bk_jumlah'   => $request->jml,
