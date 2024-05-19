@@ -1,13 +1,21 @@
 <?php
 
 namespace App\Models\Admin;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\BelongsToRelationship;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+use App\Models\Admin\MerkModel;
+use App\Models\Admin\UserModel;
+use App\Models\Admin\SatuanModel;
+use App\Models\PemesananBarangModel;
 
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Admin\BarangmasukModel;
+use App\Models\Admin\JenisBarangModel;
+use App\Models\Admin\BarangkeluarModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\BelongsToRelationship;
 
 class BarangModel extends Model
 {
@@ -54,6 +62,7 @@ class BarangModel extends Model
     {
         return $this->hasMany(BarangmasukModel::class, 'bm_id', 'bm_id');
     }
+
     public function barangkeluars(): HasMany
     {
         return $this->hasMany(BarangkeluarModel::class, 'bk_id', 'bk_id');

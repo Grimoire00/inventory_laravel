@@ -76,7 +76,6 @@ class BarangController extends Controller
                         "jenisbarang_id" => $row->jenisbarang_id,
                         "satuan_id" => $row->satuan_id,
                         "merk_id" => $row->merk_id,
-                        "barang_id" => $row->barang_id,
                         "barang_kode" => $row->barang_kode,
                         "barang_nama" => trim(preg_replace('/[^A-Za-z0-9-]+/', '_', $row->barang_nama)),
                         "barang_harga" => $row->barang_harga,
@@ -156,6 +155,7 @@ class BarangController extends Controller
                         "barang_nama" => trim(preg_replace('/[^A-Za-z0-9-]+/', '_', $row->barang_nama)),
                         "satuan_nama" => trim(preg_replace('/[^A-Za-z0-9-]+/', '_', $row->satuan_nama)),
                         "jenisbarang_nama" => trim(preg_replace('/[^A-Za-z0-9-]+/', '_', $row->jenisbarang_nama)),
+                        "merk_nama" => trim(preg_replace('/[^A-Za-z0-9-]+/', '_', $row->merk_nama)),
                     );
                     $button = '';
                     if ($request->get('param') == 'tambah') {

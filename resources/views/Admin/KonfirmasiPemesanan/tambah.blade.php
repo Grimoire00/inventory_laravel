@@ -29,7 +29,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -39,7 +38,6 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </label>
-
                             <div class="input-group">
                                 <input type="text" class="form-control" autocomplete="off" name="kdbarang"
                                     placeholder="">
@@ -48,37 +46,31 @@
                                 <button class="btn btn-success-light" onclick="modalBarang()" type="button"><i
                                         class="fe fe-box"></i></button>
                             </div>
-                            <div class="form-group">
-                                <label>Nama Barang</label>
-                                <input type="text" class="form-control" id="nmbarang" readonly>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Satuan</label>
-                                        <input type="text" class="form-control" id="satuan" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Jenis</label>
-                                        <input type="text" class="form-control" id="jenis" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Merk</label>
-                                        <input type="text" class="form-control" id="merk" readonly>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Barang</label>
+                            <input type="text" class="form-control" id="nmbarang" readonly>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="jml" class="form-label">Jumlah Masuk <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" name="jml" value="" class="form-control"
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');"
-                                        placeholder="">
+                                    <label>Satuan</label>
+                                    <input type="text" class="form-control" id="satuan" readonly>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Jenis</label>
+                                    <input type="text" class="form-control" id="jenis" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="jml" class="form-label">Jumlah Masuk <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" name="jml" value="" class="form-control"
+                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');"
+                                placeholder="">
                         </div>
                     </div>
                 </div>
@@ -135,16 +127,13 @@
                         $("#status").val("true");
                         $("#nmbarang").val(data[0].barang_nama);
                         $("#satuan").val(data[0].satuan_nama);
-                        $("#satuan").val(data[0].satuan_nama);
                         $("#jenis").val(data[0].jenisbarang_nama);
-                        $("#merk").val(data[0].merk_nama);
                     } else {
                         $("#loaderkd").addClass('d-none');
                         $("#status").val("false");
                         $("#nmbarang").val('');
                         $("#satuan").val('');
                         $("#jenis").val('');
-                        $("#merk").val('');
                     }
                 }
             });
@@ -232,7 +221,6 @@
             $("#nmbarang").val('');
             $("#satuan").val('');
             $("#jenis").val('');
-            $("#merk").val('');
             $("#status").val('false');
             setLoading(false);
         }

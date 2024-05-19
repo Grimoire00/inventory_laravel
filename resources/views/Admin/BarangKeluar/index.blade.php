@@ -5,10 +5,7 @@
     <div class="page-header">
         <h1 class="page-title">Barang Keluar</h1>
         <div>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item text-gray">Transaksi</li>
-                <li class="breadcrumb-item active" aria-current="page">Barang Keluar</li>
-            </ol>
+
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -112,7 +109,7 @@
                 "info": true,
                 "order": [],
                 "scrollX": true,
-                "stateSave":true,
+                "stateSave": true,
                 "lengthMenu": [
                     [5, 10, 25, 50, 100],
                     [5, 10, 25, 50, 100]
@@ -150,15 +147,15 @@
                         data: 'bk_jumlah',
                         name: 'bk_jumlah',
                     },
-                     {
-                    data: 'customer',
-                    name: 'customer_nama',
+                    {
+                        data: 'customer',
+                        name: 'customer_nama',
                     },
                     {
                         data: 'tujuan',
                         name: 'bk_tujuan',
                     },
-                   
+
                     {
                         data: 'action',
                         name: 'action',

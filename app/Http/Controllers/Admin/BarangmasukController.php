@@ -86,6 +86,7 @@ class BarangmasukController extends Controller
 
     public function proses_tambah(Request $request) 
     {
+        // dd($request->all());
 
 $barang = BarangModel::where('barang_kode', $request->barang)->first();
         //insert data
@@ -94,7 +95,7 @@ $barang = BarangModel::where('barang_kode', $request->barang)->first();
             'bm_tanggal' => $request->tglmasuk,
             'bm_kode' => $request->bmkode,
             'barang_id' => $barang->barang_id,
-            // 'barang_kode' => $request->barang,
+            'barang_kode' => $request->barang,
             'supplier_id'   => $request->supplier,
             'bm_jumlah'   => $request->jml,
         ]);
@@ -102,7 +103,7 @@ $barang = BarangModel::where('barang_kode', $request->barang)->first();
         return response()->json(['success' => 'Berhasil']);
     }
 
-
+    
     public function proses_ubah(Request $request, BarangmasukModel $barangmasuk)
     {
         //update data

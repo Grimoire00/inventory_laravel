@@ -1,24 +1,28 @@
 <?php
 
-use App\Http\Controllers\Admin\BarangController;
-use App\Http\Controllers\Admin\BarangkeluarController;
-use App\Http\Controllers\Admin\BarangmasukController;
-use App\Http\Controllers\Admin\CustomerController;
-use App\Http\Controllers\Admin\SupplierController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\JenisBarangController;
-use App\Http\Controllers\Admin\LapBarangKeluarController;
-use App\Http\Controllers\Admin\LapBarangMasukController;
-use App\Http\Controllers\Admin\LapStokBarangController;
-use App\Http\Controllers\Admin\LoginController;
+use App\Models\Admin\BarangModel;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MerkController;
-use App\Http\Controllers\Admin\SatuanController;
-use App\Http\Controllers\Master\AksesController;
-use App\Http\Controllers\Master\AppreanceController;
+use App\Http\Controllers\Master\WebController;
+use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Master\MenuController;
 use App\Http\Controllers\Master\RoleController;
 use App\Http\Controllers\Master\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BarangController;
+use App\Http\Controllers\Admin\SatuanController;
+use App\Http\Controllers\Master\AksesController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PemesananBarangController;
+use App\Http\Controllers\KonfirmasiBarangController;
+use App\Http\Controllers\Master\AppreanceController;
+use App\Http\Controllers\Admin\BarangmasukController;
+use App\Http\Controllers\Admin\JenisBarangController;
+use App\Http\Controllers\Admin\BarangkeluarController;
+use App\Http\Controllers\Admin\LapStokBarangController;
+use App\Http\Controllers\Admin\LapBarangMasukController;
+use App\Http\Controllers\Admin\LapBarangKeluarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -156,7 +160,7 @@ Route::group(['middleware' => 'userlogin'], function () {
 
         Route::middleware(['checkRoleUser:2,othermenu'])->group(function () {
             // Menu
-            Route::resource('/admin/menu', \App\Http\Controllers\Master\MenuController::class);
+            Route::resource('/admin/menu', MenuController::class);
             Route::post('/admin/menu/hapus', [MenuController::class, 'hapus']);
             Route::get('/admin/menu/sortup/{sort}', [MenuController::class, 'sortup']);
             Route::get('/admin/menu/sortdown/{sort}', [MenuController::class, 'sortdown']);
@@ -164,14 +168,14 @@ Route::group(['middleware' => 'userlogin'], function () {
 
         Route::middleware(['checkRoleUser:3,othermenu'])->group(function () {
             // Role
-            Route::resource('/admin/role', \App\Http\Controllers\Master\RoleController::class);
+            Route::resource('/admin/role', RoleController::class);
             Route::get('/admin/role/show/', [RoleController::class, 'show'])->name('role.getrole');
             Route::post('/admin/role/hapus', [RoleController::class, 'hapus']);
         });
 
         Route::middleware(['checkRoleUser:4,othermenu'])->group(function () {
             // List User
-            Route::resource('/admin/user', \App\Http\Controllers\Master\UserController::class);
+            Route::resource('/admin/user', UserController::class);
             Route::get('/admin/user/show/', [UserController::class, 'show'])->name('user.getuser');
             Route::post('/admin/user/hapus', [UserController::class, 'hapus']);
         });
@@ -185,16 +189,38 @@ Route::group(['middleware' => 'userlogin'], function () {
             Route::get('/admin/akses/unsetAll/{role}', [AksesController::class, 'unsetAllAkses']);
         });
 
+        Route::middleware(['checkRoleUser:/pemesanan-barang,submenu'])->group(function () {
+            // Pemesanan Barang
+            Route::resource('/admin/pemesanan-barang', PemesananBarangController::class)->except('store');
+            Route::get('/admin/pemesanan-barang/show/', [PemesananBarangController::class, 'show'])->name('pemesanan-barang.getpemesanan-barang');
+            Route::post('/admin/pemesanan-barang/proses_tambah/', [PemesananBarangController::class, 'proses_tambah'])->name('pemesanan-barang.store');
+            Route::post('/admin/pemesanan-barang/proses_ubah/{pemesananbarang}', [PemesananBarangController::class, 'proses_ubah']);
+            Route::post('/admin/pemesanan-barang/proses_hapus/{pemesananbarangx`}', [PemesananBarangController::class, 'proses_hapus']);
+            // Route::get('/admin/barang/getbarang/{id}', [BarangController::class, 'getbarang']);
+            // Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
+        });
+
+        // Route::middleware(['checkRoleUser:/konfirmasi-pemesanan,submenu'])->group(function () {
+        //     // Konfirmasi Pemesanan
+        //     Route::resource('/admin/konfirmasi-pemesanan', KonfirmasiBarangController::class)->except('store');
+        //     Route::get('/admin/konfirmasi-pemesanan/show/', [KonfirmasiBarangController::class, 'show'])->name('konfirmasi-pemesanan.getkonfirmasi-pemesanan');
+        //     Route::post('/admin/konfirmasi-pemesanan/proses_tambah/', [KonfirmasiBarangController::class, 'proses_tambah'])->name('konfirmasi-pemesanan.store');
+        //     Route::post('/admin/konfirmasi-pemesanan/proses_ubah/{barangmasuk}', [KonfirmasiBarangController::class, 'proses_ubah']);
+        //     Route::post('/admin/konfirmasi-pemesanan/proses_hapus/{barangmasuk}', [KonfirmasiBarangController::class, 'proses_hapus']);
+        //     Route::get('/admin/barang/getbarang/{id}', [BarangController::class, 'getbarang']);
+        //     // Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
+        // });
+
         Route::middleware(['checkRoleUser:6,othermenu'])->group(function () {
             // Web
-            Route::resource('/admin/web', \App\Http\Controllers\Master\WebController::class);
+            Route::resource('/admin/web', WebController::class);
         });
     });
 });
 
 Route::get('/tes', function() {
     // COntoh ngambil barang id 2
-    $data = \App\Models\Admin\BarangModel::with('jenisBarang')->findOrFail(2);
+    $data = BarangModel::with('jenisBarang')->findOrFail(2);
     // cara manggil relasinya sesuaikan dengan nama fungsi di model BarangModel
     // $data itu data di tabel barang
     // $data->jenisBarang itu data di tabel jenis barang yang terkoneksi sama tabel barang

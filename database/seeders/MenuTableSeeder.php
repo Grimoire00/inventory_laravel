@@ -67,8 +67,8 @@ class MenuTableSeeder extends Seeder
                 ],
                 [
                     'menu_id' => '1667444045',
-                    'menu_judul' => 'Transaksi',
-                    'menu_slug' => 'transaksi',
+                    'menu_judul' => 'Manajemen Barang',
+                    'menu_slug' => 'manajemen-barang',
                     'menu_icon' => 'repeat',
                     'menu_redirect' => '',
                     'menu_sort' => 5,
@@ -76,13 +76,25 @@ class MenuTableSeeder extends Seeder
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],
+                
                 [
                     'menu_id' => '1667444046',
+                    'menu_judul' => 'Data Pemesanan',
+                    'menu_slug' => 'data-pemesanan',
+                    'menu_icon' => 'shopping-cart',
+                    'menu_redirect' => '',
+                    'menu_sort' => 6,
+                    'menu_type' => 2,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ],
+                [
+                    'menu_id' => '1667444047',
                     'menu_judul' => 'Laporan',
                     'menu_slug' => 'laporan',
                     'menu_icon' => 'printer',
                     'menu_redirect' => '',
-                    'menu_sort' => 6,
+                    'menu_sort' => 7,
                     'menu_type' => 2,
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

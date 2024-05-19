@@ -4,12 +4,7 @@
     <!-- PAGE-HEADER -->
     <div class="page-header">
         <h1 class="page-title">Profile</h1>
-        <div>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item text-gray">User</li>
-                <li class="breadcrumb-item active" aria-current="page">Profile</li>
-            </ol>
-        </div>
+
     </div>
     <!-- PAGE-HEADER END -->
 

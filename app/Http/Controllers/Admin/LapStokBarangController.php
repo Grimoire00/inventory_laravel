@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+// use App\Http\Controllers\Admin\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\BarangkeluarModel;
 use App\Models\Admin\BarangmasukModel;
@@ -82,11 +83,16 @@ class LapStokBarangController extends Controller
                     return $result;
                 })
                 ->addColumn('totalstok', function ($row) use ($request) {
+
+                    $stokawal = BarangModel::where('barang_id', '=', $row->barang_id)
+                    ->value('barang_stok');
+
                     if ($request->tglawal == '') {
                         $jmlmasuk = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangmasuk.barang_id')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->where('tbl_barangmasuk.barang_id', '=', $row->barang_id)->sum('tbl_barangmasuk.bm_jumlah');
                     } else {
                         $jmlmasuk = BarangmasukModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangmasuk.barang_id')->leftJoin('tbl_supplier', 'tbl_supplier.supplier_id', '=', 'tbl_barangmasuk.supplier_id')->whereBetween('bm_tanggal', [$request->tglawal, $request->tglakhir])->where('tbl_barangmasuk.barang_id', '=', $row->barang_id)->sum('tbl_barangmasuk.bm_jumlah');
                     }
+                    
 
 
                     if ($request->tglawal) {
@@ -95,7 +101,7 @@ class LapStokBarangController extends Controller
                         $jmlkeluar = BarangkeluarModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangkeluar.barang_id')->leftJoin('tbl_customer', 'tbl_customer.customer_id', '=', 'tbl_barangkeluar.customer_id')->where('tbl_barangkeluar.barang_id', '=', $row->barang_id)->sum('tbl_barangkeluar.bk_jumlah');
                     }
 
-                    $totalstok = $jmlmasuk - $jmlkeluar;
+                    $totalstok = $stokawal + $jmlmasuk - $jmlkeluar ;
                     if($totalstok == 0){
                         $result = '<span class="">'.$totalstok.'</span>';
                     }else if($totalstok > 0){

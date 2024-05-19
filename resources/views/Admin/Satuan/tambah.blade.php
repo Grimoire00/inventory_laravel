@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="satuan" class="form-label">Nama Satuan <span class="text-danger">*</span></label>
+                    <label for="satuan" class="form-label">Satuan Barang<span class="text-danger">*</span></label>
                     <input type="text" name="satuan" class="form-control" placeholder="">
                 </div>
                 <div class="form-group">

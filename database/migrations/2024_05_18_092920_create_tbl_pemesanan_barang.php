@@ -13,18 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_barangmasuk', function (Blueprint $table) {
-            $table->bigIncrements('bm_id');
-            $table->unsignedBigInteger('supplier_id')->nullable();
+        Schema::create('tbl_pemesanan', function (Blueprint $table) {
+            $table->bigIncrements('pesan_id');
+            // $table->unsignedBigInteger('barang_id')->nullable();
             $table->unsignedBigInteger('barang_id')->nullable();
             // $table->unsignedBigInteger('customer_id')->nullable();
-            $table->string('bm_kode');
-            $table->string('barang_kode');
-            $table->timestamp('bm_tanggal');
-            $table->integer('bm_jumlah');
-            $table->foreign('supplier_id')->references('supplier_id')->on('tbl_supplier')->nullOnDelete();
+            $table->string('pesan_kode');
+            $table->integer('pesan_jumlah');
+            $table->integer('pesan_totalharga');
+            $table->timestamp('pesan_tanggal');
+            $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED']);
             $table->foreign('barang_id')->references('barang_id')->on('tbl_barang')->nullOnDelete();
-            // $table->foreign('customer_id')->references('customer_id')->on('tbl_customer')->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -36,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_barangmasuk');
+        Schema::dropIfExists('tbl_pemesanan');
     }
 };
