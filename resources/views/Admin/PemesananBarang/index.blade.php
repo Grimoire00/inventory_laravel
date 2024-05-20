@@ -34,7 +34,7 @@
                                 <th class="border-bottom-0">Kode Barang</th>
                                 <th class="border-bottom-0">Barang</th>
                                 <th class="border-bottom-0">Qty</th>
-                                <th class="border-bottom-0">TotalHarga</th>
+                                <th class="border-bottom-0">Total Harga</th>
                                 <th class="border-bottom-0">Supplier</th>
                                 <th class="border-bottom-0">Status</th>
                                 <th class="border-bottom-0" width="1%">Action</th>
@@ -52,6 +52,7 @@
     @include('Admin.PemesananBarang.edit')
     @include('Admin.PemesananBarang.hapus')
     @include('Admin.PemesananBarang.barang')
+    @include('Admin.PemesananBarang.konfirmasi')
 
     <script>
         function generateID() {
@@ -86,6 +87,14 @@
                 confirmButtonText: "Iya."
             });
         }
+
+        function konfirmasiPopupModal(data) {
+            $("input[name='konfirmasi_pesanan_id']").val(data.pesan_id);
+            $("input[name='konfirmasi_action']").val(data.action);
+            $("#konfirmasi-status-pesanan").html("<b>" + data.pesan_status + "</b>");
+            $("#konfirmasi-id-status-pesanan").html("<b>" + data.pesan_kode + "</b>");
+            $("#konfirmasi-action-button").html("<b>" + data.action + "</b>");
+        }
     </script>
 @endsection
 
@@ -99,6 +108,17 @@
 
         var table;
         $(document).ready(function() {
+            var routeName = "{{ url()->current() }}";
+            var routeNameDiff = "{{ route('konfirmasi-pemesanan.index') }}";
+            var ajaxUrl = "";
+
+            // Determine the ajax URL based on the route name
+            if (routeName === routeNameDiff) {
+                ajaxUrl = "{{ route('konfirmasi-pemesanan.getpemesanan-barang') }}";
+            } else {
+                ajaxUrl = "{{ route('pemesanan-barang.getpemesanan-barang') }}";
+            }
+
             //datatables
             table = $('#table-1').DataTable({
 
@@ -117,7 +137,7 @@
                 lengthChange: true,
 
                 "ajax": {
-                    "url": "{{ route('pemesanan-barang.getpemesanan-barang') }}",
+                    "url": ajaxUrl,
                 },
 
                 "columns": [{
@@ -127,11 +147,11 @@
                     },
                     {
                         data: 'tgl',
-                        name: 'pb_tanggal',
+                        name: 'pesan_tanggal',
                     },
                     {
-                        data: 'pb_kode',
-                        name: 'pb_kode',
+                        data: 'pesan_kode',
+                        name: 'pesan_kode',
                     },
                     {
                         data: 'barang_kode',
@@ -142,12 +162,12 @@
                         name: 'barang_nama',
                     },
                     {
-                        data: 'pb_jumlah',
-                        name: 'qty',
+                        data: 'pesan_jumlah',
+                        name: 'pesan_jumlah',
                     },
                     {
-                        data: 'total_harga',
-                        name: 'total_harga',
+                        data: 'pesan_totalharga',
+                        name: 'pesan_totalharga',
                     },
                     {
                         data: 'supplier',

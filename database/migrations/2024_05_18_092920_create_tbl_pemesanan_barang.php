@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('pesan_jumlah');
             $table->integer('pesan_totalharga');
             $table->timestamp('pesan_tanggal');
-            $table->enum('pesan_status', ['PENDING', 'APPROVED', 'REJECTED']);
+            $table->enum('pesan_status', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
             $table->foreign('barang_id')->references('barang_id')->on('tbl_barang')->nullOnDelete();
             $table->foreign('supplier_id')->references('supplier_id')->on('tbl_supplier')->nullOnDelete();
             $table->timestamps();

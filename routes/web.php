@@ -201,16 +201,17 @@ Route::group(['middleware' => 'userlogin'], function () {
             Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
         });
 
-        // Route::middleware(['checkRoleUser:/konfirmasi-pemesanan,submenu'])->group(function () {
+        Route::middleware(['checkRoleUser:/konfirmasi-pemesanan,submenu'])->group(function () {
         //     // Konfirmasi Pemesanan
             Route::resource('/admin/konfirmasi-pemesanan', KonfirmasiPemesananController::class)->except('store');
-        //     Route::get('/admin/konfirmasi-pemesanan/show/', [KonfirmasiBarangController::class, 'show'])->name('konfirmasi-pemesanan.getkonfirmasi-pemesanan');
+            Route::get('/admin/konfirmasi-pemesanan/show/', [KonfirmasiPemesananController::class, 'show'])->name('konfirmasi-pemesanan.getpemesanan-barang');
+            Route::post('/admin/konfirmasi-pemesanan/proses-konfirmasi', [KonfirmasiPemesananController::class, 'konfirmasiPemesanan'])->name('konfirmasi-pemesanan.konfirmasiPemesanan');
         //     Route::post('/admin/konfirmasi-pemesanan/proses_tambah/', [KonfirmasiBarangController::class, 'proses_tambah'])->name('konfirmasi-pemesanan.store');
         //     Route::post('/admin/konfirmasi-pemesanan/proses_ubah/{barangmasuk}', [KonfirmasiBarangController::class, 'proses_ubah']);
         //     Route::post('/admin/konfirmasi-pemesanan/proses_hapus/{barangmasuk}', [KonfirmasiBarangController::class, 'proses_hapus']);
         //     Route::get('/admin/barang/getbarang/{id}', [BarangController::class, 'getbarang']);
         //     // Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
-        // });
+        });
 
         Route::middleware(['checkRoleUser:6,othermenu'])->group(function () {
             // Web

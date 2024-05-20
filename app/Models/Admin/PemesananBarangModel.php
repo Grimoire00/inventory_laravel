@@ -15,6 +15,7 @@ class PemesananBarangModel extends Model
         'barang_id',
         'pesan_kode',
         'pesan_jumlah',
+        'barang_kode',
         'supplier_id',
         'pesan_totalharga',
         'pesan_tanggal',

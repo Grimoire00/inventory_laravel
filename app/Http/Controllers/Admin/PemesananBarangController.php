@@ -47,6 +47,24 @@ class PemesananBarangController extends Controller
                     $barang = $row->barang_id == '' ? '-' : $row->barang_nama;
                     return $barang;
                 })
+                ->addColumn('pstatus', function ($row) {
+                    $bg_color = '';
+                    switch ($row->pesan_status) {
+                        case 'PENDING':
+                            $bg_color = 'bg-warning';
+                            break;
+                        case 'APPROVED':
+                            $bg_color = 'bg-success';
+                            break;
+                        case 'REJECTED':
+                            $bg_color = 'bg-danger';
+                            break;
+                        default:
+                            $bg_color = 'bg-warning';
+                            break;
+                    }
+                    return '<span class="badge ' . $bg_color . '">' . $row->pesan_status .  '</span>';
+                })
                 ->addColumn('action', function ($row) {
                     $array = [
                         "pesan_id" => $row->pesan_id,
@@ -88,12 +106,13 @@ class PemesananBarangController extends Controller
                     }
                     return $button;
                 })
-                ->rawColumns(['action', 'tgl', 'supplier', 'barang'])->make(true);
+                ->rawColumns(['action', 'tgl', 'supplier', 'barang', 'pstatus'])->make(true);
         }
     }
 
     public function proses_tambah(Request $request)
     {
+        // dd($request->all());
         // $request->validate([
         //     'pbkode' => 'required|string',
         //     'tglpesan' => 'required|date',
@@ -103,13 +122,14 @@ class PemesananBarangController extends Controller
         //     'totalharga' => 'required|numeric|min:1',
         // ]);
 
-        $barang = BarangModel::where('barang_kode', $request->kdbarang)->first();
+        $barang = BarangModel::where('barang_kode', $request->barang)->first();
+        // dd($barang);
 
         PemesananBarangModel::create([
             'pesan_tanggal' => $request->tglpesan,
             'pesan_kode' => $request->pbkode,
             'barang_id' => $barang->barang_id,
-            'barang_kode' => $request->kdbarang,
+            'barang_kode' => $request->barang,
             'supplier_id' => $request->supplier,
             'pesan_jumlah' => $request->pesan_jumlah,
             'pesan_totalharga' => $request->totalharga,
