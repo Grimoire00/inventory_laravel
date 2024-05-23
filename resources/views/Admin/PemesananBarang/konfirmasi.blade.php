@@ -11,7 +11,7 @@
                 <br>
                 <i class="icon icon-exclamation fs-70 text-warning lh-1 my-5 d-inline-block"></i>
                 <h3 class="mb-5">Konfirmasi <span id="konfirmasi-action-button"></span> Status <span
-                        id="konfirmasi-status-pesanan"></span> Pemesanan Barang
+                        id="konfirmasi-status-pesanan"></span> Konfirmasi Pemesanan
                     <span id="konfirmasi-id-status-pesanan"></span> ?
                 </h3>
                 <input type="hidden" name="konfirmasi_pesanan_id" id="konfirmasi_pesanan_id">

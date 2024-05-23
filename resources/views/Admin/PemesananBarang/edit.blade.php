@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">Ubah Barang Masuk</h6><button aria-label="Close" onclick="resetU()"
+                <h6 class="modal-title">Ubah Pemesanan Barang</h6><button aria-label="Close" onclick="resetU()"
                     class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
@@ -11,14 +11,14 @@
                     <div class="col-md-6">
                         <input type="hidden" name="idbmU">
                         <div class="form-group">
-                            <label for="bmkodeU" class="form-label">Kode Barang Masuk <span
+                            <label for="bmkodeU" class="form-label">Kode Pesanan Barang <span
                                     class="text-danger">*</span></label>
                             <input type="text" name="bmkodeU" readonly class="form-control" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="tglmasukU" class="form-label">Tanggal Masuk <span
+                            <label for="tglmasukU" class="form-label">Tanggal Pesan <span
                                     class="text-danger">*</span></label>
-                            <input type="text" name="tglmasukU" class="form-control datepicker-date" placeholder="">
+                            <input type="text" name="tglpesanU" class="form-control datepicker-date" placeholder="">
                         </div>
                         <div class="form-group">
                             <label for="supplierU" class="form-label">Pilih Supplier <span
@@ -71,13 +71,18 @@
                                     <input type="text" class="form-control" id="merkU" readonly>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="jmlU" class="form-label">Jumlah Masuk <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" name="jmlU" class="form-control"
-                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');"
-                                placeholder="">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Qty</label>
+                                    <input type="text" class="form-control" name="pesan_jumlah" id="pesan_jumlahU">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label>Total Harga</label>
+                                    <input type="text" class="form-control" name="totalharga" id="totalhargaU">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -147,17 +152,18 @@
         }
 
         function checkFormU() {
-            const tglmasuk = $("input[name='tglmasukU']").val();
+            const tglpesan = $("input[name='tglpesanU']").val();
             const status = $("#statusU").val();
-            const kdbarang = $("input[name='kdbarangU").val();
             const supplier = $("select[name='supplierU']").val();
-            const jml = $("input[name='jmlU']").val();
+            const pesan_jumlah = $("select[name='pesan_jumlahU']").val();
+            // const kdbarang = $("input[name='kdbarangU").val();
+            const totalharga = $("input[name='totalhargaU']").val();
             setLoadingU(true);
             resetValidU();
 
-            if (tglmasuk == "") {
+            if (tglpesan == "") {
                 validasi('Tanggal Masuk wajib di isi!', 'warning');
-                $("input[name='tglmasukU']").addClass('is-invalid');
+                $("input[name='tglpesanU']").addClass('is-invalid');
                 setLoading(Ufalse);
                 return false;
             } else if (supplier == "") {
@@ -165,15 +171,20 @@
                 $("select[name='supplierU']").addClass('is-invalid');
                 setLoadingU(false);
                 return false;
-            } else if (status == "false" || kdbarang == '') {
+            } else if (status == "false") {
                 validasi('Barang wajib di pilih!', 'warning');
                 $("input[name='kdbarangU']").addClass('is-invalid');
                 setLoadingU(false);
                 return false;
-            } else if (jml == "" || jml == "0") {
+            } else if (pesan_jumlah == "" || pesan_jumlah == "0") {
                 validasi('Jumlah Masuk wajib di isi!', 'warning');
-                $("input[name='jmlU']").addClass('is-invalid');
-                setLoadingU(false);
+                $("input[name='pesan_jumlahU']").addClass('is-invalid');
+                setLoading(false);
+                return false;
+            } else if (totalharga == "" || totalharga == "0") {
+                validasi('Jumlah Masuk wajib di isi!', 'warning');
+                $("input[name='totalhargaU']").addClass('is-invalid');
+                setLoading(false);
                 return false;
             } else {
                 submitFormU();
@@ -181,23 +192,31 @@
         }
 
         function submitFormU() {
-            const id = $("input[name='idbmU']").val();
-            const bmkode = $("input[name='bmkodeU']").val();
-            const tglmasuk = $("input[name='tglmasukU']").val();
+            // const id = $("input[name='idbmU']").val();
+            // const bmkode = $("input[name='bmkodeU']").val();
+            // const tglmasuk = $("input[name='tglmasukU']").val();
+            // const kdbarang = $("input[name='kdbarangU']").val();
+            // const supplier = $("select[name='supplierU']").val();
+            // const jml = $("input[name='jmlU']").val();
+
+            const pbkode = $("input[name='pbkodeU']").val();
+            const tglpesan = $("input[name='tglpesanU']").val();
             const kdbarang = $("input[name='kdbarangU']").val();
             const supplier = $("select[name='supplierU']").val();
-            const jml = $("input[name='jmlU']").val();
+            const pesan_jumlah = $("input[name='pesan_jumlahU']").val();
+            const totalharga = $("input[name='totalhargaU']").val();
 
             $.ajax({
                 type: 'POST',
-                url: "{{ url('admin/barang-masuk/proses_ubah') }}/" + id,
+                url: "{{ url('admin/pemesanan-barang/proses_ubah') }}",
                 enctype: 'multipart/form-data',
                 data: {
-                    bmkode: bmkode,
-                    tglmasuk: tglmasuk,
+                    pbkode: pbkode,
+                    tglpesan: tglpesan,
                     barang: kdbarang,
                     supplier: supplier,
-                    jml: jml
+                    pesan_jumlah: pesan_jumlah,
+                    totalharga: totalharga
                 },
                 success: function(data) {
                     swal({
@@ -212,25 +231,26 @@
         }
 
         function resetValidU() {
-            $("input[name='tglmasukU']").removeClass('is-invalid');
+            $("input[name='tglpesanU']").removeClass('is-invalid');
             $("input[name='kdbarangU']").removeClass('is-invalid');
             $("select[name='supplierU']").removeClass('is-invalid');
-            $("input[name='jmlU']").removeClass('is-invalid');
+            $("input[name='jumlah_pesanU']").removeClass('is-invalid');
+            $("input[name='totalhargaU']").removeClass('is-invalid');
         };
 
         function resetU() {
             resetValidU();
-            $("input[name='idbmU']").val('');
-            $("input[name='bmkodeU']").val('');
-            $("input[name='tglmasukU']").val('');
+            $("input[name='pbkodeU']").val('');
+            $("input[name='tglpesanU']").val('');
             $("input[name='kdbarangU']").val('');
             $("select[name='supplierU']").val('');
-            $("input[name='jmlU']").val('0');
-            $("#nmbarangU").val('');
-            $("#satuanU").val('');
-            $("#jenisU").val('');
-            $("#merkU").val('');
-            $("#statusU").val('false');
+            $("input[name='jumlah_pesanU']").val('0');
+            $("#nmbarang").val('');
+            $("#satuan").val('');
+            $("#jenis").val('');
+            $("#merk").val('');
+            $("#status").val('false');
+            setLoading(false);
 
             setLoadingU(false);
         }
