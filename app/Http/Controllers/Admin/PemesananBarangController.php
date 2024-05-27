@@ -20,7 +20,7 @@ class PemesananBarangController extends Controller
     {
         $data["title"] = "Pemesanan Barang";
         $data["hakTambah"] = AksesModel::leftJoin('tbl_submenu', 'tbl_submenu.submenu_id', '=', 'tbl_akses.submenu_id')
-            ->where(['tbl_akses.role_id' => Session::get('user')->role_id, 'tbl_submenu.submenu_judul' => 'Barang', 'tbl_akses.akses_type' => 'create'])
+            ->where(['tbl_akses.role_id' => Session::get('user')->role_id, 'tbl_submenu.submenu_judul' => 'Pemesanan Barang', 'tbl_akses.akses_type' => 'create'])
             ->count();
         $data["supplier"] = SupplierModel::orderBy('supplier_id', 'DESC')->get();
         return view('Admin.PemesananBarang.index', $data);
@@ -77,10 +77,10 @@ class PemesananBarangController extends Controller
                     ];
                     $button = '';
                     $hakEdit = AksesModel::leftJoin('tbl_submenu', 'tbl_submenu.submenu_id', '=', 'tbl_akses.submenu_id')
-                        ->where(['tbl_akses.role_id' => Session::get('user')->role_id, 'tbl_submenu.submenu_judul' => 'Barang', 'tbl_akses.akses_type' => 'update'])
+                        ->where(['tbl_akses.role_id' => Session::get('user')->role_id, 'tbl_submenu.submenu_judul' => 'Pemesanan Barang', 'tbl_akses.akses_type' => 'update'])
                         ->count();
                     $hakDelete = AksesModel::leftJoin('tbl_submenu', 'tbl_submenu.submenu_id', '=', 'tbl_akses.submenu_id')
-                        ->where(['tbl_akses.role_id' => Session::get('user')->role_id, 'tbl_submenu.submenu_judul' => 'Barang', 'tbl_akses.akses_type' => 'delete'])
+                        ->where(['tbl_akses.role_id' => Session::get('user')->role_id, 'tbl_submenu.submenu_judul' => 'Pemesanan Barang', 'tbl_akses.akses_type' => 'delete'])
                         ->count();
                     if ($hakEdit > 0 && $hakDelete > 0) {
                         $button .= '

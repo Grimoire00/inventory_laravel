@@ -74,7 +74,7 @@ class MerkController extends Controller
         MerkModel::create([
             'merk_nama' => $request->merk,
             'merk_slug' => $slug,
-            'merk_keterangan'   => $request->ket,
+            'merk_keterangan' => $request->ket,
         ]);
 
         return response()->json(['success' => 'Berhasil']);

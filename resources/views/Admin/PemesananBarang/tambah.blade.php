@@ -29,8 +29,27 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label>Qty</label>
+                                        <input type="text" class="form-control" name="pesan_jumlah">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label>Harga Barang</label>
+                                        <input type="text" class="form-control" id="barang_harga" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Kode Barang <span class="text-danger me-1">*</span>
@@ -71,18 +90,14 @@
                                         <input type="text" class="form-control" id="merk" readonly>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Qty</label>
-                                        <input type="text" class="form-control" name="pesan_jumlah">
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
+                                <div>
                                     <div class="form-group">
                                         <label>Total Harga</label>
-                                        <input type="text" class="form-control" name="totalharga" id="totalharga">
+                                        <input type="text" class="form-control" name="totalharga" id="totalharga"
+                                            readonly>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -126,6 +141,19 @@
             resetValid();
         }
 
+        function formatRupiah(angka) {
+            const numberString = angka.toString();
+            const sisa = numberString.length % 3;
+            let rupiah = numberString.substr(0, sisa);
+            const ribuan = numberString.substr(sisa).match(/\d{3}/g);
+
+            if (ribuan) {
+                const separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            return 'Rp. ' + rupiah;
+        }
+
         function getbarangbyid(id) {
             $("#loaderkd").removeClass('d-none');
             $.ajax({
@@ -143,6 +171,8 @@
                         $("#satuan").val(data[0].satuan_nama);
                         $("#jenis").val(data[0].jenisbarang_nama);
                         $("#merk").val(data[0].merk_nama);
+                        $("#barang_harga").val(formatRupiah(data[0].barang_harga));
+                        calculateTotalHarga(); //Harusnya perkalian antara harga dan pesan jumlah
                     } else {
                         $("#loaderkd").addClass('d-none');
                         $("#status").val("false");
@@ -150,10 +180,23 @@
                         $("#satuan").val('');
                         $("#jenis").val('');
                         $("#merk").val('');
+                        $("#barang_harga").val('');
+                        $("#totalharga").val('');
                     }
                 }
             });
         }
+
+        function calculateTotalHarga() {
+            const hargaBarang = parseFloat($("#barang_harga").val().replace(/[^,\d]/g, '')) || 0;
+            const jumlahPesan = parseFloat($("input[name='pesan_jumlah']").val().replace(/[^,\d]/g, '')) || 0;
+            const totalHarga = hargaBarang * jumlahPesan;
+            $("#totalharga").val(formatRupiah(totalHarga.toFixed(0)));
+        }
+
+        $("input[name='pesan_jumlah']").on('input', function() {
+            calculateTotalHarga();
+        });
 
         function checkForm() {
             const tglpesan = $("input[name='tglpesan']").val();
@@ -247,6 +290,8 @@
             $("#satuan").val('');
             $("#jenis").val('');
             $("#merk").val('');
+            $("#barang_harga").val('');
+            $("#totalharga").val('');
             $("#status").val('false');
             setLoading(false);
         }

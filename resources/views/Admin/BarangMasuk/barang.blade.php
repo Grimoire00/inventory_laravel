@@ -32,6 +32,7 @@
     </div>
 </div>
 
+{{-- @dd() --}}
 @section('formOtherJS')
     <script>
         document.getElementById('randkey').value = makeid(10);

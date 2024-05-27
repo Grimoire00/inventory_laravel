@@ -149,7 +149,7 @@ class submenuTableSeeder extends Seeder
                     'menu_id' => '1667444047',
                     'submenu_judul' => 'Lap. Pemesanan Barang',
                     'submenu_slug' => 'laporan-pemesanan-barang',                    
-                    'submenu_redirect' => '',
+                    'submenu_redirect' => '/lap-pemesanan-barang',
                     'submenu_sort' => 4,                
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

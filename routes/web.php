@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\KonfirmasiPemesananController;
 use App\Http\Controllers\Admin\LapStokBarangController;
 use App\Http\Controllers\Admin\LapBarangMasukController;
 use App\Http\Controllers\Admin\LapBarangKeluarController;
+use App\Http\Controllers\Admin\LapPemesananBarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,7 +121,7 @@ Route::group(['middleware' => 'userlogin'], function () {
         Route::post('/admin/barang-masuk/proses_tambah/', [BarangmasukController::class, 'proses_tambah'])->name('barang-masuk.store');
         Route::post('/admin/barang-masuk/proses_ubah/{barangmasuk}', [BarangmasukController::class, 'proses_ubah']);
         Route::post('/admin/barang-masuk/proses_hapus/{barangmasuk}', [BarangmasukController::class, 'proses_hapus']);
-        Route::get('/admin/barang/getbarang/{id}', [BarangController::class, 'getbarang']);
+        Route::get('/admin/barang/getbarang/{id}', [BarangController::class, 'getbarang']);        
         Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
     });
 
@@ -155,6 +156,14 @@ Route::group(['middleware' => 'userlogin'], function () {
         Route::get('/admin/lapstokbarang/print/', [LapStokBarangController::class, 'print'])->name('lap-sb.print');
         Route::get('/admin/lapstokbarang/pdf/', [LapStokBarangController::class, 'pdf'])->name('lap-sb.pdf');
         Route::get('/admin/lap-stok-barang/show/', [LapStokBarangController::class, 'show'])->name('lap-sb.getlap-sb');
+    });
+
+    Route::middleware(['checkRoleUser:/lap-pemesanan-barang,submenu'])->group(function () {
+        // Laporan Pemesanan Barang
+        Route::resource('/admin/lap-pemesanan-barang', LapPemesananBarangController::class)->except('store');
+        Route::get('/admin/lappemesananbarang/print/', [LapPemesananBarangController::class, 'print'])->name('lap-pb.print');
+        Route::get('/admin/lappemesananbarang/pdf/', [LapPemesananBarangController::class, 'pdf'])->name('lap-pb.pdf');
+        Route::get('/admin/lap-pemesanan-barang/show/', [LapPemesananBarangController::class, 'show'])->name('lap-pb.getlap-pb');
     });
 
     Route::middleware(['checkRoleUser:1,othermenu'])->group(function () {
