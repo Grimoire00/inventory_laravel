@@ -141,18 +141,18 @@
             resetValid();
         }
 
-        function formatRupiah(angka) {
-            const numberString = angka.toString();
-            const sisa = numberString.length % 3;
-            let rupiah = numberString.substr(0, sisa);
-            const ribuan = numberString.substr(sisa).match(/\d{3}/g);
+        // function formatRupiah(angka) {
+        //     const numberString = angka.toString();
+        //     const sisa = numberString.length % 3;
+        //     let rupiah = numberString.substr(0, sisa);
+        //     const ribuan = numberString.substr(sisa).match(/\d{3}/g);
 
-            if (ribuan) {
-                const separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-            }
-            return 'Rp. ' + rupiah;
-        }
+        //     if (ribuan) {
+        //         const separator = sisa ? '.' : '';
+        //         rupiah += separator + ribuan.join('.');
+        //     }
+        //     return 'Rp. ' + rupiah;
+        // }
 
         function getbarangbyid(id) {
             $("#loaderkd").removeClass('d-none');
@@ -171,7 +171,7 @@
                         $("#satuan").val(data[0].satuan_nama);
                         $("#jenis").val(data[0].jenisbarang_nama);
                         $("#merk").val(data[0].merk_nama);
-                        $("#barang_harga").val(formatRupiah(data[0].barang_harga));
+                        $("#barang_harga").val(data[0].barang_harga);
                         calculateTotalHarga(); //Harusnya perkalian antara harga dan pesan jumlah
                     } else {
                         $("#loaderkd").addClass('d-none');
@@ -191,7 +191,7 @@
             const hargaBarang = parseFloat($("#barang_harga").val().replace(/[^,\d]/g, '')) || 0;
             const jumlahPesan = parseFloat($("input[name='pesan_jumlah']").val().replace(/[^,\d]/g, '')) || 0;
             const totalHarga = hargaBarang * jumlahPesan;
-            $("#totalharga").val(formatRupiah(totalHarga.toFixed(0)));
+            $("#totalharga").val(totalHarga.toFixed(0));
         }
 
         $("input[name='pesan_jumlah']").on('input', function() {

@@ -30,6 +30,7 @@
                             </select>
                         </div>
 
+
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -78,13 +79,15 @@
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');"
                                         placeholder="">
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
+                {{-- <button class="btn btn-success" onclick="tambahInputBarang()">Tambah Barang</button> --}}
                 <button class="btn btn-primary d-none" id="btnLoader" type="button" disabled="">
                     <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                     Loading...
