@@ -34,8 +34,10 @@
                                 {{-- <th class="border-bottom-0">Kode Barang</th> --}}
                                 <th class="border-bottom-0">Nama Barang</th>
                                 <th class="border-bottom-0">Stok</th>
-                                <th class="border-bottom-0">Rata2 Permintaan (/minggu)</th>
-                                <th class="border-bottom-0">Leadtime</th>
+                                <th class="border-bottom-0">Min Permintaan (/hari)</th>
+                                <th class="border-bottom-0">Max Permintaan (/hari)</th>
+                                <th class="border-bottom-0">Rata2 Permintaan</th>
+                                <th class="border-bottom-0">Leadtime (/hari)</th>
                                 <th class="border-bottom-0">Min. Stok</th>
                                 <th class="border-bottom-0">Max. Stok</th>
                                 <th class="border-bottom-0">Safety Stok</th>
@@ -53,20 +55,31 @@
                                                 placeholder="0" value="{{ $item->average }}">
                                         </td>
                                         <td>
+                                            <input type="number" id="input_minpermintaan{{ $item->id }}"
+                                                class="form-control" placeholder="0" value="{{ $item->min_permintaan }}">
+                                        </td>
+                                        <td>
+                                            <input type="number" id="input_maxpermintaan{{ $item->id }}"
+                                                class="form-control" placeholder="0" value="{{ $item->max_permintaan }}">
+                                        </td>
+                                        <td>
                                             <input type="number" id="input_leadtime{{ $item->id }}"
                                                 class="form-control" placeholder="0" value="{{ $item->leadtime }}">
                                         </td>
                                         <td>
                                             <input type="number" id="input_safety_stok{{ $item->id }}"
-                                                class="form-control" placeholder="0" value="{{ $item->safety_stok }}">
+                                                class="form-control" readonly placeholder="0"
+                                                value="{{ $item->safety_stok }}">
                                         </td>
                                         <td>
                                             <input type="number" id="input_min_stok{{ $item->id }}"
-                                                class="form-control" placeholder="0" value="{{ $item->min_stok }}">
+                                                class="form-control" placeholder="0" readonly
+                                                value="{{ $item->min_stok }}">
                                         </td>
                                         <td>
                                             <input type="number" readonly id="input_max_stok{{ $item->id }}"
-                                                class="form-control" placeholder="0" value="{{ $item->max_stok }}">
+                                                class="form-control" readonly placeholder="0"
+                                                value="{{ $item->max_stok }}">
                                         </td>
                                     </tr>
                                 @endforeach

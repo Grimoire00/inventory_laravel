@@ -25,6 +25,8 @@ return new class extends Migration
             $table->integer('barang_harga');
             $table->integer('barang_stok');
             $table->string('barang_gambar');
+            $table->string('min_permintaan')->nullable();
+            $table->string('max_permintaan')->nullable();
             $table->string('min_stok')->nullable();
             $table->string('max_stok')->nullable();
             $table->string('average')->nullable();

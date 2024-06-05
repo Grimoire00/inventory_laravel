@@ -68,6 +68,14 @@ class MinMaxController extends Controller
                     $average = $row->average == '' ? '-' : $row->average;
                     return $average;
                 })
+                ->addColumn('min_permintaan', function ($row) {
+                    $min_permintaan = $row->min_permintaan == '' ? '-' : $row->min_permintaan;
+                    return $min_permintaan;
+                })
+                ->addColumn('max_permintaan', function ($row) {
+                    $max_permintaan = $row->max_permintan == '' ? '-' : $row->max_permintan;
+                    return $max_permintaan;
+                })
                 
                 ->addColumn('leadtime', function ($row) {
                     $leadtime = $row->leadtime == '' ? '-' : $row->leadtime;

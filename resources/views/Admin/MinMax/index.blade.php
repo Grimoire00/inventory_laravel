@@ -31,6 +31,8 @@
                                 {{-- <th class="border-bottom-0">Kode Barang</th> --}}
                                 <th class="border-bottom-0">Nama Barang</th>
                                 <th class="border-bottom-0">Stok</th>
+                                <th class="border-bottom-0">Min. Permintaan</th>
+                                <th class="border-bottom-0">Max. Permintaan</th>
                                 <th class="border-bottom-0">Rata2 Permintaan (/minggu)</th>
                                 <th class="border-bottom-0">Leadtime</th>
                                 <th class="border-bottom-0">Safety Stok</th>
@@ -135,7 +137,15 @@
                     {
                         data: 'totalstok',
                         name: 'totalstok'
-                    }, // Sesuaikan dengan nama kolom yang dihasilkan oleh controller
+                    },
+                    {
+                        data: 'min_permintaan',
+                        name: 'min_permintaan'
+                    },
+                    {
+                        data: 'max_permintaan',
+                        name: 'max_permintaan'
+                    },
                     {
                         data: 'average',
                         name: 'average'
