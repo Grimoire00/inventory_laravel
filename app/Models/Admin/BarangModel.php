@@ -32,6 +32,10 @@ class BarangModel extends Model
         'barang_harga',
         'barang_stok',
         'barang_gambar',
+        'min_stok',
+        'max_stok',
+        'safety_stok',
+        'leadtime'
     ];
     
     public function jenisBarang(): BelongsTo

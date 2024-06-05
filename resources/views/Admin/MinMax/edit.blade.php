@@ -1,96 +1,153 @@
-<!-- MODAL EDIT -->
-<div class="modal fade" data-bs-backdrop="static" id="Umodaldemo8">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content modal-content-demo">
-            <div class="modal-header">
-                <h6 class="modal-title">Ubah Jenis Barang</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" name="idjenisbarangU">
-                <div class="form-group">
-                    <label for="jenisbarangU" class="form-label">Jenis Barang <span class="text-danger">*</span></label>
-                    <input type="text" name="jenisbarangU" class="form-control" placeholder="">
+@extends('Master.Layouts.app', ['title' => $title])
+
+@section('content')
+    <!-- PAGE-HEADER -->
+    <div class="page-header">
+        <h1 class="page-title">{{ $title }}</h1>
+
+    </div>
+    <!-- PAGE-HEADER END -->
+
+    <!-- ROW -->
+    <div class="row row-sm">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header justify-content-between">
+                    <h3 class="card-title">Data</h3>
+                    @if ($hakTambah > 0)
+                        <div>
+                            <a href="javascript:void(0)" onclick="checkForm()" id="btnSimpan" class="btn btn-primary">Simpan <i
+                                    class="fe fe-check"></i></a>
+                            <a href="javascript:void(0)" class="btn btn-light" onclick="reset()"
+                                data-bs-dismiss="modal">Batal
+                                <i class="fe fe-x"></i></a>
+                        </div>
+                    @endif
                 </div>
-                <div class="form-group">
-                    <label for="ketU" class="form-label">Keterangan</label>
-                    <textarea name="ketU" class="form-control" rows="4"></textarea>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="table-1"
+                            class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
+                            <thead>
+                                <th class="border-bottom-0" width="1%">No</th>
+                                {{-- <th class="border-bottom-0">Gambar</th> --}}
+                                {{-- <th class="border-bottom-0">Kode Barang</th> --}}
+                                <th class="border-bottom-0">Nama Barang</th>
+                                <th class="border-bottom-0">Stok</th>
+                                <th class="border-bottom-0">Rata2 Permintaan (/minggu)</th>
+                                <th class="border-bottom-0">Leadtime</th>
+                                <th class="border-bottom-0">Min. Stok</th>
+                                <th class="border-bottom-0">Max. Stok</th>
+                                <th class="border-bottom-0">Safety Stok</th>
+                                {{-- <th class="border-bottom-0" width="1%">Action</th> --}}
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $key => $item)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $item->barang_nama }}</td>
+                                        <td>{{ $item->current_stock }}</td>
+                                        <!-- Kolom input -->
+                                        <td>
+                                            <input type="number" id="input_average{{ $item->id }}" class="form-control"
+                                                placeholder="0" value="{{ $item->average }}">
+                                        </td>
+                                        <td>
+                                            <input type="number" id="input_leadtime{{ $item->id }}"
+                                                class="form-control" placeholder="0" value="{{ $item->leadtime }}">
+                                        </td>
+                                        <td>
+                                            <input type="number" id="input_safety_stok{{ $item->id }}"
+                                                class="form-control" placeholder="0" value="{{ $item->safety_stok }}">
+                                        </td>
+                                        <td>
+                                            <input type="number" id="input_min_stok{{ $item->id }}"
+                                                class="form-control" placeholder="0" value="{{ $item->min_stok }}">
+                                        </td>
+                                        <td>
+                                            <input type="number" readonly id="input_max_stok{{ $item->id }}"
+                                                class="form-control" placeholder="0" value="{{ $item->max_stok }}">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success d-none" id="btnLoaderU" type="button" disabled="">
-                    <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                    Loading...
-                </button>
-                <a href="javascript:void(0)" onclick="checkFormU()" id="btnSimpanU" class="btn btn-success">Simpan Perubahan <i class="fe fe-check"></i></a>
-                <a href="javascript:void(0)" class="btn btn-light" onclick="resetU()" data-bs-dismiss="modal">Batal <i class="fe fe-x"></i></a>
             </div>
         </div>
     </div>
-</div>
+    <!-- END ROW -->
+
+    {{-- @include('Admin.Barang.tambah')
+    @include('Admin.Barang.edit')
+    @include('Admin.Barang.hapus')
+    @include('Admin.Barang.gambar') --}}
+@endsection
 
 @section('formEditJS')
-<script>
-    function checkFormU() {
-        const jenis = $("input[name='jenisbarangU']").val();
-        setLoadingU(true);
-        resetValidU();
+    <script>
+        function checkFormU() {
+            const jenis = $("input[name='jenisbarangU']").val();
+            setLoadingU(true);
+            resetValidU();
 
-        if (jenis == "") {
-            validasi('Jenis Barang wajib di isi!', 'warning');
-            $("input[name='jenisbarangU']").addClass('is-invalid');
-            setLoadingU(false);
-            return false;
-        } else {
-            submitFormU();
-        }
-    }
-
-    function submitFormU() {
-        const id = $("input[name='idjenisbarangU']").val();
-        const jenis = $("input[name='jenisbarangU']").val();
-        const ket = $("textarea[name='ketU']").val();
-
-        $.ajax({
-            type: 'POST',
-            url: "{{url('admin/jenisbarang/proses_ubah')}}/" + id,
-            enctype: 'multipart/form-data',
-            data: {
-                jenisbarang: jenis,
-                ket: ket
-            },
-            success: function(data) {
-                swal({
-                    title: "Berhasil diubah!",
-                    type: "success"
-                });
-                $('#Umodaldemo8').modal('toggle');
-                table.ajax.reload(null, false);
-                resetU();
+            if (jenis == "") {
+                validasi('Jenis Barang wajib di isi!', 'warning');
+                $("input[name='jenisbarangU']").addClass('is-invalid');
+                setLoadingU(false);
+                return false;
+            } else {
+                submitFormU();
             }
-        });
-    }
-
-    function resetValidU() {
-        $("input[name='jenisbarangU']").removeClass('is-invalid');
-        $("textarea[name='ketU']").removeClass('is-invalid');
-    };
-
-    function resetU() {
-        resetValidU();
-        $("input[name='idjenisbarangU']").val('');
-        $("input[name='jenisbarangU']").val('');
-        $("textarea[name='ketU']").val('');
-        setLoadingU(false);
-    }
-
-    function setLoadingU(bool) {
-        if (bool == true) {
-            $('#btnLoaderU').removeClass('d-none');
-            $('#btnSimpanU').addClass('d-none');
-        } else {
-            $('#btnSimpanU').removeClass('d-none');
-            $('#btnLoaderU').addClass('d-none');
         }
-    }
-</script>
+
+        function submitFormU() {
+            const id = $("input[name='idjenisbarangU']").val();
+            const jenis = $("input[name='jenisbarangU']").val();
+            const ket = $("textarea[name='ketU']").val();
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('admin/jenisbarang/proses_ubah') }}/" + id,
+                enctype: 'multipart/form-data',
+                data: {
+                    jenisbarang: jenis,
+                    ket: ket
+                },
+                success: function(data) {
+                    swal({
+                        title: "Berhasil diubah!",
+                        type: "success"
+                    });
+                    $('#Umodaldemo8').modal('toggle');
+                    table.ajax.reload(null, false);
+                    resetU();
+                }
+            });
+        }
+
+        function resetValidU() {
+            $("input[name='jenisbarangU']").removeClass('is-invalid');
+            $("textarea[name='ketU']").removeClass('is-invalid');
+        };
+
+        function resetU() {
+            resetValidU();
+            $("input[name='idjenisbarangU']").val('');
+            $("input[name='jenisbarangU']").val('');
+            $("textarea[name='ketU']").val('');
+            setLoadingU(false);
+        }
+
+        function setLoadingU(bool) {
+            if (bool == true) {
+                $('#btnLoaderU').removeClass('d-none');
+                $('#btnSimpanU').addClass('d-none');
+            } else {
+                $('#btnSimpanU').removeClass('d-none');
+                $('#btnLoaderU').addClass('d-none');
+            }
+        }
+    </script>
 @endsection

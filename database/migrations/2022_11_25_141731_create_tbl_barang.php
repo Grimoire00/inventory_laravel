@@ -25,6 +25,11 @@ return new class extends Migration
             $table->integer('barang_harga');
             $table->integer('barang_stok');
             $table->string('barang_gambar');
+            $table->string('min_stok')->nullable();
+            $table->string('max_stok')->nullable();
+            $table->string('average')->nullable();
+            $table->string('safety_stok')->nullable();
+            $table->string('leadtime')->nullable();
             $table->foreign('jenisbarang_id')->references('jenisbarang_id')->on('tbl_jenisbarang')->nullOnDelete();
             $table->foreign('satuan_id')->references('satuan_id')->on('tbl_satuan')->nullOnDelete();
             $table->foreign('merk_id')->references('merk_id')->on('tbl_merk')->nullOnDelete();

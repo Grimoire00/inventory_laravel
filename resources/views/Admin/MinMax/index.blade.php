@@ -3,7 +3,7 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header">
-        <h1 class="page-title">Perhitungan MinMax</h1>
+        <h1 class="page-title">{{ $title }}</h1>
 
     </div>
     <!-- PAGE-HEADER END -->
@@ -16,23 +16,31 @@
                     <h3 class="card-title">Data</h3>
                     @if ($hakTambah > 0)
                         <div>
-                            <a class="modal-effect btn btn-primary-light" data-bs-effect="effect-super-scaled"
-                                data-bs-toggle="modal" href="#modaldemo8">Tambah Data
-                                <i class="fe fe-plus"></i></a>
+                            <a class=" btn btn-primary-light" href="{{ route('minmax.proses_ubah') }}">Edit
+                                Perhitungan</a>
                         </div>
                     @endif
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="table-1" width="100%"
+                        <table id="table-1"
                             class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
                             <thead>
                                 <th class="border-bottom-0" width="1%">No</th>
-                                <th class="border-bottom-0">Jenis Barang</th>
-                                <th class="border-bottom-0">Keterangan</th>
-                                <th class="border-bottom-0" width="1%">Action</th>
+                                {{-- <th class="border-bottom-0">Gambar</th> --}}
+                                {{-- <th class="border-bottom-0">Kode Barang</th> --}}
+                                <th class="border-bottom-0">Nama Barang</th>
+                                <th class="border-bottom-0">Stok</th>
+                                <th class="border-bottom-0">Rata2 Permintaan (/minggu)</th>
+                                <th class="border-bottom-0">Leadtime</th>
+                                <th class="border-bottom-0">Safety Stok</th>
+                                <th class="border-bottom-0">Min. Stok</th>
+                                <th class="border-bottom-0">Max. Stok</th>
+                                {{-- <th class="border-bottom-0" width="1%">Action</th> --}}
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -41,27 +49,49 @@
     </div>
     <!-- END ROW -->
 
-    @include('Admin.JenisBarang.tambah')
-    @include('Admin.JenisBarang.edit')
-    @include('Admin.JenisBarang.hapus')
+    {{-- @include('Admin.Barang.tambah')
+    @include('Admin.Barang.edit')
+    @include('Admin.Barang.hapus')
+    @include('Admin.Barang.gambar') --}}
 
     <script>
-        function update(data) {
-            $("input[name='idjenisbarangU']").val(data.jenisbarang_id);
-            $("input[name='jenisbarangU']").val(data.jenisbarang_nama.replace(/_/g, ' '));
-            $("textarea[name='ketU']").val(data.jenisbarang_ket.replace(/_/g, ' '));
+        function generateID() {
+            id = new Date().getTime();
+            $("input[name='kode']").val("BRG-" + id);
         }
 
-        function hapus(data) {
-            $("input[name='idjenisbarang']").val(data.jenisbarang_id);
-            $("#vjenisbarang").html("jenis " + "<b>" + data.jenisbarang_nama.replace(/_/g, ' ') + "</b>");
+        // function update(data) {
+        //     $("input[name='idbarangU']").val(data.barang_id);
+        //     $("input[name='kodeU']").val(data.barang_kode);
+        //     $("input[name='namaU']").val(data.barang_nama.replace(/_/g, ' '));
+        //     $("select[name='jenisbarangU']").val(data.jenisbarang_id);
+        //     $("select[name='satuanU']").val(data.satuan_id);
+        //     $("select[name='merkU']").val(data.merk_id);
+        //     $("input[name='stokU']").val(data.barang_stok);
+        //     $("input[name='hargaU']").val(data.barang_harga.replace(/_/g, ' '));
+        //     if (data.barang_gambar != 'image.png') {
+        //         $("#outputImgU").attr("src", "{{ asset('storage/barang/') }}" + "/" + data.barang_gambar);
+        //     }
+        // }
+
+        // function hapus(data) {
+        //     $("input[name='idbarang']").val(data.barang_id);
+        //     $("#vbarang").html("barang " + "<b>" + data.barang_nama.replace(/_/g, ' ') + "</b>");
+        // }
+
+        function gambar(data) {
+            if (data.barang_gambar != 'image.png') {
+                $("#outputImgG").attr("src", "{{ asset('storage/barang/') }}" + "/" + data.barang_gambar);
+            } else {
+                $("#outputImgG").attr("src", "{{ url('/assets/default/barang/image.png') }}");
+            }
         }
 
         function validasi(judul, status) {
             swal({
                 title: judul,
                 type: status,
-                confirmButtonText: "Iya."
+                confirmButtonText: "Iya"
             });
         }
     </script>
@@ -74,52 +104,66 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
         var table;
         $(document).ready(function() {
             //datatables
             table = $('#table-1').DataTable({
-
                 "processing": true,
                 "serverSide": true,
                 "info": true,
-                "stateSave": true,
                 "order": [],
+                "stateSave": true,
+                "scrollX": true,
                 "lengthMenu": [
                     [5, 10, 25, 50, 100],
                     [5, 10, 25, 50, 100]
                 ],
                 "pageLength": 10,
-
                 lengthChange: true,
-
                 "ajax": {
-                    "url": "{{ route('jenisbarang.getjenisbarang') }}",
+                    "url": "{{ route('minmax.getminmax') }}",
                 },
-
                 "columns": [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         searchable: false
                     },
                     {
-                        data: 'jenisbarang_nama',
-                        name: 'jenisbarang_nama',
+                        data: 'barang_nama',
+                        name: 'barang_nama'
                     },
                     {
-                        data: 'ket',
-                        name: 'jenisbarang_ket',
+                        data: 'totalstok',
+                        name: 'totalstok'
+                    }, // Sesuaikan dengan nama kolom yang dihasilkan oleh controller
+                    {
+                        data: 'average',
+                        name: 'average'
                     },
                     {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
+                        data: 'leadtime',
+                        name: 'leadtime'
                     },
+                    {
+                        data: 'safety_stok',
+                        name: 'safety_stok'
+                    },
+                    {
+                        data: 'min_stok',
+                        name: 'min_stok'
+                    },
+                    {
+                        data: 'max_stok',
+                        name: 'max_stok'
+                    },
+                    // {
+                    //     data: 'action',
+                    //     name: 'action',
+                    //     orderable: false,
+                    //     searchable: false
+                    // },
                 ],
-
             });
-
         });
     </script>
 @endsection

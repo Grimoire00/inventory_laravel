@@ -64,8 +64,8 @@ class submenuTableSeeder extends Seeder
                     'submenu_id' => '1667444055',
                     'menu_id' => '1667444044',
                     'submenu_judul' => 'Min Max',
-                    'submenu_slug' => 'min-max',                    
-                    'submenu_redirect' => '',
+                    'submenu_slug' => 'minmax',                    
+                    'submenu_redirect' => '/minmax',
                     'submenu_sort' => 5,                
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

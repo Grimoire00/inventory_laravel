@@ -14,6 +14,7 @@ use App\Http\Controllers\Master\AksesController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MinMaxController;
 use App\Http\Controllers\Admin\PemesananBarangController;
 use App\Http\Controllers\KonfirmasiBarangController;
 use App\Http\Controllers\Master\AppreanceController;
@@ -94,6 +95,15 @@ Route::group(['middleware' => 'userlogin'], function () {
         Route::post('/admin/barang/proses_tambah/', [BarangController::class, 'proses_tambah'])->name('barang.store');
         Route::post('/admin/barang/proses_ubah/{barang}', [BarangController::class, 'proses_ubah']);
         Route::post('/admin/barang/proses_hapus/{barang}', [BarangController::class, 'proses_hapus']);
+    });
+
+    Route::middleware(['checkRoleUser:/minmax,submenu'])->group(function () {
+        // MinMax
+        Route::get('/admin/minmax/proses_ubah', [MinMaxController::class, 'proses_ubah'])->name('minmax.proses_ubah');
+        Route::resource('/admin/minmax', MinMaxController::class)->except('store');
+        Route::get('/admin/minmax/show/', [MinMaxController::class, 'show'])->name('minmax.getminmax');
+        // phpRoute::post('/admin/minmax/proses_tambah/', [MinMaxController::class, 'proses_tambah'])->name('minmax.store-data');
+        // Route::post('/admin/minmax/proses_hapus/{minmax}', [SatuanController::class, 'proses_hapus']);
     });
 
     Route::middleware(['checkRoleUser:/customer,menu'])->group(function () {
