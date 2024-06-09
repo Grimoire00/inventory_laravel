@@ -46,8 +46,8 @@
                                         placeholder="Password" autocomplete="off">
                                 </div>
                                 <!-- <div class="text-end pt-4">
-                                                                <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Forgot Password?</a></p>
-                                                            </div> -->
+                                                                            <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Forgot Password?</a></p>
+                                                                        </div> -->
                                 <div class="container-login100-form-btn">
                                     <button type="button" class="login100-form-btn btn btn-primary d-none" id="btnLoader"
                                         type="button" disabled="">

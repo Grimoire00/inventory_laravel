@@ -33,8 +33,8 @@
                                 <th class="border-bottom-0">Stok</th>
                                 <th class="border-bottom-0">Min. Permintaan</th>
                                 <th class="border-bottom-0">Max. Permintaan</th>
-                                <th class="border-bottom-0">Rata2 Permintaan (/minggu)</th>
-                                <th class="border-bottom-0">Leadtime</th>
+                                <th class="border-bottom-0">Rata2 Permintaan</th>
+                                <th class="border-bottom-0">Leadtime (Hari)</th>
                                 <th class="border-bottom-0">Safety Stok</th>
                                 <th class="border-bottom-0">Min. Stok</th>
                                 <th class="border-bottom-0">Max. Stok</th>
@@ -57,10 +57,10 @@
     @include('Admin.Barang.gambar') --}}
 
     <script>
-        function generateID() {
-            id = new Date().getTime();
-            $("input[name='kode']").val("BRG-" + id);
-        }
+        // function generateID() {
+        //     id = new Date().getTime();
+        //     $("input[name='kode']").val("BRG-" + id);
+        // }
 
         // function update(data) {
         //     $("input[name='idbarangU']").val(data.barang_id);
@@ -166,12 +166,6 @@
                         data: 'max_stok',
                         name: 'max_stok'
                     },
-                    // {
-                    //     data: 'action',
-                    //     name: 'action',
-                    //     orderable: false,
-                    //     searchable: false
-                    // },
                 ],
             });
         });

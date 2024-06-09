@@ -21,7 +21,7 @@
                         <div class="text-center chat-image mb-5">
                             <div class="avatar avatar-xxl chat-profile mb-3 brround">
                                 @if ($data->user_foto == 'undraw_profile.svg' || $data->user_foto == '')
-                                    <img src="{{ url('/assets/default/users/undraw_profile.svg') }}" alt="profile-user">
+                                    <img src="{{ url('/assets/default/users/user_vector.png') }}" alt="profile-user">
                                 @else
                                     <img src="{{ asset('storage/users/' . $data->user_foto) }}" alt="profile-user">
                                 @endif

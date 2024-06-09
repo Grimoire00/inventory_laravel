@@ -59,6 +59,7 @@ Route::group(['middleware' => 'userlogin'], function () {
         Route::get('/', [DashboardController::class, 'index']);
         Route::get('/admin', [DashboardController::class, 'index']);
         Route::get('/admin/dashboard', [DashboardController::class, 'index']);
+        Route::get('/admin/dashboard/show', [DashboardController::class, 'show']);
     });
 
     Route::middleware(['checkRoleUser:/jenisbarang,submenu'])->group(function () {
@@ -100,8 +101,10 @@ Route::group(['middleware' => 'userlogin'], function () {
     Route::middleware(['checkRoleUser:/minmax,submenu'])->group(function () {
         // MinMax
         Route::get('/admin/minmax/proses_ubah', [MinMaxController::class, 'proses_ubah'])->name('minmax.proses_ubah');
+        Route::post('/admin/minmax/proses_ubah_store', [MinMaxController::class, 'proses_ubah_store']);    
         Route::resource('/admin/minmax', MinMaxController::class)->except('store');
         Route::get('/admin/minmax/show/', [MinMaxController::class, 'show'])->name('minmax.getminmax');
+        
         // phpRoute::post('/admin/minmax/proses_tambah/', [MinMaxController::class, 'proses_tambah'])->name('minmax.store-data');
         // Route::post('/admin/minmax/proses_hapus/{minmax}', [SatuanController::class, 'proses_hapus']);
     });

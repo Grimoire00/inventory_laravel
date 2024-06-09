@@ -24,7 +24,7 @@
                 <button class="btn btn-primary d-none" id="btnLoader" type="button" disabled="">
                     <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                     Loading...
-                </button>
+                </button>   
                 <a href="javascript:void(0)" onclick="checkForm()" id="btnSimpan" class="btn btn-primary">Simpan <i
                         class="fe fe-check"></i></a>
                 <a href="javascript:void(0)" class="btn btn-light" onclick="reset()" data-bs-dismiss="modal">Batal <i

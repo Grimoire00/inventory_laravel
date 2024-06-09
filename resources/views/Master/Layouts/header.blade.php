@@ -122,7 +122,7 @@
                                         <small class="text-muted me-4">{{ session()->get('user')->role_title }}</small>
                                     </div>
                                     @if (session()->get('user')->user_foto == 'undraw_profile.svg')
-                                        <img src="{{ url('/assets/default/web/default.png') }}" alt="profile-user"
+                                        <img src="{{ url('/assets/default/users/user_vector.png') }}" alt="profile-user"
                                             class="avatar  profile-user brround cover-image">
                                     @else
                                         <img class="avatar profile-user brround cover-image"

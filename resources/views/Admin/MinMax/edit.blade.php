@@ -16,10 +16,9 @@
                     <h3 class="card-title">Data</h3>
                     @if ($hakTambah > 0)
                         <div>
-                            <a href="javascript:void(0)" onclick="checkForm()" id="btnSimpan" class="btn btn-primary">Simpan <i
-                                    class="fe fe-check"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-light" onclick="reset()"
-                                data-bs-dismiss="modal">Batal
+                            <a href="javascript:void(0)" onclick="submitFormU()" id="btnSimpanU"
+                                class="btn btn-primary-light">Simpan<i class="fe fe-check"></i></a>
+                            <a class="btn btn-light" href="{{ url('/admin/minmax') }}">Batal
                                 <i class="fe fe-x"></i></a>
                         </div>
                     @endif
@@ -34,52 +33,56 @@
                                 {{-- <th class="border-bottom-0">Kode Barang</th> --}}
                                 <th class="border-bottom-0">Nama Barang</th>
                                 <th class="border-bottom-0">Stok</th>
-                                <th class="border-bottom-0">Min Permintaan (/hari)</th>
-                                <th class="border-bottom-0">Max Permintaan (/hari)</th>
+                                <th class="border-bottom-0">Min Permintaan (hari)</th>
+                                <th class="border-bottom-0">Max Permintaan (hari)</th>
+                                <th class="border-bottom-0">Leadtime (hari)</th>
                                 <th class="border-bottom-0">Rata2 Permintaan</th>
-                                <th class="border-bottom-0">Leadtime (/hari)</th>
+                                <th class="border-bottom-0">Safety Stok</th>
                                 <th class="border-bottom-0">Min. Stok</th>
                                 <th class="border-bottom-0">Max. Stok</th>
-                                <th class="border-bottom-0">Safety Stok</th>
                                 {{-- <th class="border-bottom-0" width="1%">Action</th> --}}
                             </thead>
                             <tbody>
                                 @foreach ($data as $key => $item)
-                                    <tr>
+                                    <tr data-id="{{ $item->barang_id }}">
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $item->barang_nama }}</td>
                                         <td>{{ $item->current_stock }}</td>
                                         <!-- Kolom input -->
                                         <td>
-                                            <input type="number" id="input_average{{ $item->id }}" class="form-control"
+                                            <input type="number" name="minPermintaanU[]"
+                                                id="input_minpermintaan{{ $item->barang_id }}" class="form-control"
+                                                placeholder="0" value="{{ $item->min_permintaan }}">
+                                        </td>
+                                        <td>
+                                            <input type="number" name="maxPermintaanU[]"
+                                                id="input_maxpermintaan{{ $item->barang_id }}" class="form-control"
+                                                placeholder="0" value="{{ $item->max_permintaan }}">
+                                        </td>
+                                        <td>
+                                            <input type="number" name="leadtimeU[]"
+                                                id="input_leadtime{{ $item->barang_id }}" class="form-control"
+                                                placeholder="0" value="{{ $item->leadtime }}">
+                                        </td>
+                                        <td>
+                                            <input type="number" name="averageU[]"
+                                                id="input_average{{ $item->barang_id }}" class="form-control" readonly
                                                 placeholder="0" value="{{ $item->average }}">
                                         </td>
                                         <td>
-                                            <input type="number" id="input_minpermintaan{{ $item->id }}"
-                                                class="form-control" placeholder="0" value="{{ $item->min_permintaan }}">
+                                            <input type="number" name="safetyU[]"
+                                                id="input_safety_stok{{ $item->barang_id }}" class="form-control" readonly
+                                                placeholder="0" value="{{ $item->safety_stok }}">
                                         </td>
                                         <td>
-                                            <input type="number" id="input_maxpermintaan{{ $item->id }}"
-                                                class="form-control" placeholder="0" value="{{ $item->max_permintaan }}">
+                                            <input type="number" name="minStokU[]"
+                                                id="input_min_stok{{ $item->barang_id }}" class="form-control"
+                                                placeholder="0" readonly value="{{ $item->min_stok }}">
                                         </td>
                                         <td>
-                                            <input type="number" id="input_leadtime{{ $item->id }}"
-                                                class="form-control" placeholder="0" value="{{ $item->leadtime }}">
-                                        </td>
-                                        <td>
-                                            <input type="number" id="input_safety_stok{{ $item->id }}"
-                                                class="form-control" readonly placeholder="0"
-                                                value="{{ $item->safety_stok }}">
-                                        </td>
-                                        <td>
-                                            <input type="number" id="input_min_stok{{ $item->id }}"
-                                                class="form-control" placeholder="0" readonly
-                                                value="{{ $item->min_stok }}">
-                                        </td>
-                                        <td>
-                                            <input type="number" readonly id="input_max_stok{{ $item->id }}"
-                                                class="form-control" readonly placeholder="0"
-                                                value="{{ $item->max_stok }}">
+                                            <input type="number" name="maxStokU[]"
+                                                id="input_max_stok{{ $item->barang_id }}" class="form-control" readonly
+                                                placeholder="0" value="{{ $item->max_stok }}">
                                         </td>
                                     </tr>
                                 @endforeach
@@ -100,67 +103,71 @@
 
 @section('formEditJS')
     <script>
-        function checkFormU() {
-            const jenis = $("input[name='jenisbarangU']").val();
-            setLoadingU(true);
-            resetValidU();
+        $(document).ready(function() {
+            $('#table-1 tbody').on('input', 'input[type="number"]', function() {
+                const id = $(this).closest('tr').data('id');
+                const minPermintaan = parseFloat($('#input_minpermintaan' + id).val()) || 0;
+                const maxPermintaan = parseFloat($('#input_maxpermintaan' + id).val()) || 0;
+                const leadtime = parseFloat($('#input_leadtime' + id).val()) || 0;
+                const average = (minPermintaan + maxPermintaan) / 2;
+                const safety = (maxPermintaan - average) * leadtime;
+                const minStok = (average * leadtime) + safety;
+                const maxStok = 2 * (average * leadtime) + safety;
 
-            if (jenis == "") {
-                validasi('Jenis Barang wajib di isi!', 'warning');
-                $("input[name='jenisbarangU']").addClass('is-invalid');
-                setLoadingU(false);
-                return false;
-            } else {
-                submitFormU();
-            }
-        }
+                $('#input_average' + id).val(average.toFixed(2));
+                $('#input_safety_stok' + id).val(safety.toFixed(2));
+                $('#input_min_stok' + id).val(minStok.toFixed(2));
+                $('#input_max_stok' + id).val(maxStok.toFixed(2));
+            });
+        });
 
         function submitFormU() {
-            const id = $("input[name='idjenisbarangU']").val();
-            const jenis = $("input[name='jenisbarangU']").val();
-            const ket = $("textarea[name='ketU']").val();
+            let dataToUpdate = [];
 
+            $('#table-1 tbody tr').each(function() {
+                const id = $(this).data('id');
+                const minPermintaan = parseFloat($('#input_minpermintaan' + id).val()) || 0;
+                const maxPermintaan = parseFloat($('#input_maxpermintaan' + id).val()) || 0;
+                const leadtime = parseFloat($('#input_leadtime' + id).val()) || 0;
+                const average = (minPermintaan + maxPermintaan) / 2;
+                const safety = (maxPermintaan - average) * leadtime;
+                const minStok = (average * leadtime) + safety;
+                const maxStok = 2 * (average * leadtime) + safety;
+
+                dataToUpdate.push({
+                    id: id,
+                    minPermintaan: minPermintaan,
+                    maxPermintaan: maxPermintaan,
+                    leadtime: leadtime,
+                    average: average,
+                    safety: safety,
+                    minStok: minStok,
+                    maxStok: maxStok
+                });
+            });
+
+            console.log(dataToUpdate);
+
+            // Lakukan permintaan AJAX untuk memperbarui data
             $.ajax({
                 type: 'POST',
-                url: "{{ url('admin/jenisbarang/proses_ubah') }}/" + id,
-                enctype: 'multipart/form-data',
+                url: "{{ url('admin/minmax/proses_ubah_store') }}",
                 data: {
-                    jenisbarang: jenis,
-                    ket: ket
+                    data: dataToUpdate,
+                    _token: '{{ csrf_token() }}'
                 },
-                success: function(data) {
+                success: function(response) {
                     swal({
                         title: "Berhasil diubah!",
                         type: "success"
                     });
-                    $('#Umodaldemo8').modal('toggle');
-                    table.ajax.reload(null, false);
-                    resetU();
+                    // Tindakan lebih lanjut setelah berhasil diperbarui
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // Penanganan kesalahan jika ada
                 }
             });
-        }
-
-        function resetValidU() {
-            $("input[name='jenisbarangU']").removeClass('is-invalid');
-            $("textarea[name='ketU']").removeClass('is-invalid');
-        };
-
-        function resetU() {
-            resetValidU();
-            $("input[name='idjenisbarangU']").val('');
-            $("input[name='jenisbarangU']").val('');
-            $("textarea[name='ketU']").val('');
-            setLoadingU(false);
-        }
-
-        function setLoadingU(bool) {
-            if (bool == true) {
-                $('#btnLoaderU').removeClass('d-none');
-                $('#btnSimpanU').addClass('d-none');
-            } else {
-                $('#btnSimpanU').removeClass('d-none');
-                $('#btnLoaderU').addClass('d-none');
-            }
         }
     </script>
 @endsection

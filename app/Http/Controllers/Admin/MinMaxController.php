@@ -73,7 +73,7 @@ class MinMaxController extends Controller
                     return $min_permintaan;
                 })
                 ->addColumn('max_permintaan', function ($row) {
-                    $max_permintaan = $row->max_permintan == '' ? '-' : $row->max_permintan;
+                    $max_permintaan = $row->max_permintaan == '' ? '-' : $row->max_permintaan;
                     return $max_permintaan;
                 })
                 
@@ -168,15 +168,28 @@ class MinMaxController extends Controller
         
             return $row;
         });
-        // dd($data);
-        $minmax->update([
-            'min_stok' => $request->minStok,
-            'max_stok' => $request->maxStok,
-            'leadtime' => $request->leadtime,
-            'average'   => $request->average,
-            'safety_stok'   => $request->safety,
-        ]);
+        
+        // dd($request->all());
 
         return view('Admin.MinMax.edit', ['data' => $data, 'title' => 'Perhitungan Min-Max', 'hakTambah' => $hakTambah] );
     }
+
+    public function proses_ubah_store(Request $request)
+{
+    $data = $request->input('data');
+    
+    foreach ($data as $item) {        
+        BarangModel::where('barang_id', $item['id'])->update([
+            'min_permintaan' => $item['minPermintaan'],
+            'max_permintaan' => $item['maxPermintaan'],
+            'min_stok' => $item['minStok'],
+            'max_stok' => $item['maxStok'],
+            'leadtime' => $item['leadtime'],
+            'average' => $item['average'],
+            'safety_stok' => $item['safety'],
+        ]);
+    }
+
+    return response()->json(['success' => 'Data Berhasil']);
+}
 }

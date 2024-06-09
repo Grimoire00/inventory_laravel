@@ -133,56 +133,102 @@
                 </div>
             </a>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-black img-card box-warning-shadow">
+    </div>
+
+    {{-- Row Data --}}
+    <div class="row row-sm">
+        <div class="col-lg-12">
+            <div class="card">
                 <div class="card-body">
-                    <div class="d-flex">
-                        <div class="text-white">
-                            <h3 class="mb-0 number-font" style="font-size:16px">Date:</h3>
-                            <p id="tanggalwaktu" class="text-warning"></p>
-                            <script>
-                                var tw = new Date();
-                                if (tw.getTimezoneOffset() == 0)(a = tw.getTime() + (7 * 60 * 60 * 1000))
-                                else(a = tw.getTime());
-                                tw.setTime(a);
-                                var tahun = tw.getFullYear();
-                                var hari = tw.getDay();
-                                var bulan = tw.getMonth();
-                                var tanggal = tw.getDate();
-                                var hariarray = new Array("Minggu,", "Senin,", "Selasa,", "Rabu,", "Kamis,", "Jum'at,", "Sabtu,");
-                                var bulanarray = new Array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
-                                    "Oktober", "Nopember", "Desember");
-                                document.getElementById("tanggalwaktu").innerHTML = hariarray[hari] + " " + tanggal + " " + bulanarray[bulan] +
-                                    " " + tahun;
-                            </script>
-                        </div>
-                        <div class="ms-auto"> <i class="fe fe-calendar text-white fs-40 me-2 mt-2"></i> </div>
+                    <div class="table-responsive">
+                        <table id="table-1"
+                            class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
+                            <thead>
+                                <th class="border-bottom-0" width="1%">No</th>
+                                <th class="border-bottom-0">Nama Barang</th>
+                                <th class="border-bottom-0">Stok</th>
+                                <th class="border-bottom-0">Min. Permintaan</th>
+                                <th class="border-bottom-0">Max. Permintaan</th>
+                                <th class="border-bottom-0">Rata2 Permintaan</th>
+                                <th class="border-bottom-0">Leadtime (Hari)</th>
+                                <th class="border-bottom-0">Safety Stok</th>
+                                <th class="border-bottom-0">Min. Stok</th>
+                                <th class="border-bottom-0">Max. Stok</th>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <div class="card bg-black img-card box-warning-shadow">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="text-white">
-                            <h3 class="mb-0 number-font" style="font-size:26px">O'clock:</h3>
-                            <a href="https://time.is/Bandung" id="time_is_link" rel="nofollow" style="font-size:15px"
-                                class="text-white">Surabaya,</a>
-                            <span id="Bandung_z41c" style="font-size:15px" class="text-warning"></span>
-                            <script src="//widget.time.is/t.js"></script>
-                            <script>
-                                time_is_widget.init({
-                                    Bandung_z41c: {}
-                                });
-                            </script>
-                        </div>
-                        <div class="ms-auto"> <i class="fe fe-clock text-white fs-40 me-2 mt-2"></i> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- COL END -->
     </div>
     <!-- ROW 1 CLOSED -->
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var table;
+        $(document).ready(function() {
+            table = $('#table-1').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "info": true,
+                "order": [],
+                "stateSave": true,
+                "scrollX": true,
+                "lengthMenu": [
+                    [5, 10, 25, 50, 100],
+                    [5, 10, 25, 50, 100]
+                ],
+                "pageLength": 10,
+                lengthChange: true,
+                "ajax": {
+                    "url": "{{ url('/admin/dashboard/show') }}",
+                },
+                "columns": [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        searchable: false
+                    },
+                    {
+                        data: 'barang_nama',
+                        name: 'barang_nama'
+                    },
+                    {
+                        data: 'totalstok',
+                        name: 'totalstok'
+                    },
+                    {
+                        data: 'min_permintaan',
+                        name: 'min_permintaan'
+                    },
+                    {
+                        data: 'max_permintaan',
+                        name: 'max_permintaan'
+                    },
+                    {
+                        data: 'average',
+                        name: 'average'
+                    },
+                    {
+                        data: 'leadtime',
+                        name: 'leadtime'
+                    },
+                    {
+                        data: 'safety_stok',
+                        name: 'safety_stok'
+                    },
+                    {
+                        data: 'min_stok',
+                        name: 'min_stok'
+                    },
+                    {
+                        data: 'max_stok',
+                        name: 'max_stok'
+                    },
+                ],
+            });
+        });
+    </script>
 @endsection
