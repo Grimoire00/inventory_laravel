@@ -72,9 +72,9 @@ class DashboardController extends Controller
                     $totalstok = $stokawal + $jmlmasuk - $jmlkeluar;
     
                     if ($totalstok < $row->min_stok) {
-                        $result = '<span class="text-danger">'.$totalstok.'</span>';
-                    } else if ($totalstok < $row->safety_stok) {
                         $result = '<span class="text-warning">'.$totalstok.'</span>';
+                    } else if ($totalstok < $row->safety_stok) {
+                        $result = '<span class="text-danger">'.$totalstok.'</span>';
                     } else {
                         $result = '<span class="text-success">'.$totalstok.'</span>';
                     }
