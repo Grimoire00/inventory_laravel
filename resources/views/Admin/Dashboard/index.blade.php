@@ -141,7 +141,7 @@
         <div class="col-lg-12 overflow-x-auto">
             <div class="card">
                 <div class="card-header justify-content-between">
-                    <h3 class="card-title">Stok Barang Kurang</h3>
+                    <h3 class="card-title">Stok Barang Yang Harus Dipesan</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

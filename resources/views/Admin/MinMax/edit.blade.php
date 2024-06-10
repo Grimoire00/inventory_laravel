@@ -17,9 +17,8 @@
                     @if ($hakTambah > 0)
                         <div>
                             <a href="javascript:void(0)" onclick="submitFormU()" id="btnSimpanU"
-                                class="btn btn-primary-light">Simpan<i class="fe fe-check"></i></a>
-                            <a class="btn btn-light" href="{{ url('/admin/minmax') }}">Batal
-                                <i class="fe fe-x"></i></a>
+                                class="btn btn-primary-light">Simpan</a>
+                            <a class="btn btn-light" href="{{ url('/admin/minmax') }}">Kembali</a>
                         </div>
                     @endif
                 </div>
@@ -29,8 +28,6 @@
                             class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
                             <thead>
                                 <th class="border-bottom-0" width="1%">No</th>
-                                {{-- <th class="border-bottom-0">Gambar</th> --}}
-                                {{-- <th class="border-bottom-0">Kode Barang</th> --}}
                                 <th class="border-bottom-0">Nama Barang</th>
                                 <th class="border-bottom-0">Stok</th>
                                 <th class="border-bottom-0">Min Permintaan (hari)</th>
@@ -40,7 +37,6 @@
                                 <th class="border-bottom-0">Safety Stok</th>
                                 <th class="border-bottom-0">Min. Stok</th>
                                 <th class="border-bottom-0">Max. Stok</th>
-                                {{-- <th class="border-bottom-0" width="1%">Action</th> --}}
                             </thead>
                             <tbody>
                                 @foreach ($data as $key => $item)

@@ -138,7 +138,7 @@ Route::group(['middleware' => 'userlogin'], function () {
         Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
     });
 
-    Route::middleware(['checkRoleUser:/lap-barang-masuk,submenu'])->group(function () {
+    Route::middleware(['checkRoleUser:/barang-keluar,submenu'])->group(function () {
         // Barang Keluar
         Route::resource('/admin/barang-keluar', BarangkeluarController::class)->except('store');
         Route::get('/admin/barang-keluar/show/', [BarangkeluarController::class, 'show'])->name('barang-keluar.getbarang-keluar');
@@ -212,7 +212,7 @@ Route::group(['middleware' => 'userlogin'], function () {
             Route::get('/admin/akses/unsetAll/{role}', [AksesController::class, 'unsetAllAkses']);
         });
 
-        Route::middleware(['checkRoleUser:/pemesanan-barang,submenu'])->group(function () {
+        // Route::group(function () {
             // Pemesanan Barang
             Route::resource('/admin/pemesanan-barang', PemesananBarangController::class)->except('store');
             Route::get('/admin/pemesanan-barang/show/', [PemesananBarangController::class, 'show'])->name('pemesanan-barang.getpemesanan-barang');
@@ -221,7 +221,7 @@ Route::group(['middleware' => 'userlogin'], function () {
             Route::post('/admin/pemesanan-barang/proses_hapus/{pemesananbarangx`}', [PemesananBarangController::class, 'proses_hapus']);
             Route::get('/admin/barang/getbarang/{id}', [BarangController::class, 'getbarang']);
             Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
-        });
+        // });
 
         Route::middleware(['checkRoleUser:/konfirmasi-pemesanan,submenu'])->group(function () {
         //     // Konfirmasi Pemesanan

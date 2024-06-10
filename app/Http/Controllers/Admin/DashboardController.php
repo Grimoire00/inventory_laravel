@@ -20,6 +20,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // dd(auth()->user());
         $data["title"] = "Dashboard";
         $data["jenis"] = JenisBarangModel::orderBy('jenisbarang_id', 'DESC')->count();
         $data["satuan"] = SatuanModel::orderBy('satuan_id', 'DESC')->count();

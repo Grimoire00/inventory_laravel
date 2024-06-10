@@ -26,6 +26,7 @@ class BarangkeluarController extends Controller
     {
         if ($request->ajax()) {
             $data = BarangkeluarModel::leftJoin('tbl_barang', 'tbl_barang.barang_id', '=', 'tbl_barangkeluar.barang_id')->leftJoin('tbl_customer', 'tbl_customer.customer_id', '=', 'tbl_barangkeluar.customer_id')->orderBy('bk_id', 'DESC')->get();
+            // dd($data);
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('tgl', function ($row) {
