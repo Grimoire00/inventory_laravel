@@ -133,11 +133,12 @@
                 </div>
             </a>
         </div>
+
     </div>
 
     {{-- Row Data --}}
-    <div class="row row-sm">
-        <div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-12 overflow-x-auto">
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -155,6 +156,9 @@
                                 <th class="border-bottom-0">Min. Stok</th>
                                 <th class="border-bottom-0">Max. Stok</th>
                             </thead>
+                            <tbody>
+
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -162,12 +166,15 @@
         </div>
     </div>
     <!-- ROW 1 CLOSED -->
+@endsection
+@section('scripts')
     <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         var table;
         $(document).ready(function() {
             table = $('#table-1').DataTable({

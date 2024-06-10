@@ -131,7 +131,7 @@
                 table.ajax.reload(null, false);
                 reset();
             }
-        });
+        }); 
     }
     function resetValid() {
         $("input[name='kode']").removeClass('is-invalid');

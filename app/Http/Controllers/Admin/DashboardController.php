@@ -36,31 +36,49 @@ class DashboardController extends Controller
     public function show(Request $request)
     {
         if ($request->ajax()) {
-            $data = BarangModel::leftJoin('tbl_jenisbarang', 'tbl_jenisbarang.jenisbarang_id', '=', 'tbl_barang.jenisbarang_id')
-                ->leftJoin('tbl_satuan', 'tbl_satuan.satuan_id', '=', 'tbl_barang.satuan_id')
-                ->leftJoin('tbl_merk', 'tbl_merk.merk_id', '=', 'tbl_barang.merk_id')
-                ->orderBy('barang_id', 'DESC')
-                ->select('tbl_barang.*', 'tbl_jenisbarang.jenis_nama', 'tbl_satuan.satuan_nama', 'tbl_merk.merk_nama')
+            $data = BarangModel::orderBy('barang_id', 'DESC')
                 ->get();
-                
-                // dd($data);
-            return DataTables::of($data)
-            
+
+                $filteredData = $data->reject(function ($row) {
+                    // dd($row);
+                    $stokawal = $row->barang_stok;
+                    $jmlmasuk = BarangmasukModel::where('barang_id', '=', $row->barang_id)->sum('bm_jumlah');
+                    $jmlkeluar = BarangkeluarModel::where('barang_id', '=', $row->barang_id)->sum('bk_jumlah');
+                    $totalstok = $stokawal + $jmlmasuk - $jmlkeluar;
+                // dd($totalstok, $row->safety_stok);
+                if ($totalstok < $row->min_stok || $totalstok < $row->safety_stok) {
+                    return false;
+                }else
+                    return true;
+                }); // Reset the keys after filtering
+            // dd($filteredData);
+            return DataTables::of($filteredData)
                 ->addIndexColumn()
+                // ->filter(function ($instance) {
+                //     $instance->collection = $instance->collection->filter(function ($row) {
+                //         dd($row);
+                //         $stokawal = $row->barang_stok;                        
+                //         $jmlmasuk = BarangmasukModel::where('barang_id', '=', $row->barang_id)->sum('bm_jumlah');
+                //         $jmlkeluar = BarangkeluarModel::where('barang_id', '=', $row->barang_id)->sum('bk_jumlah');
+                //         $totalstok = $stokawal + $jmlmasuk - $jmlkeluar;
+    
+                //         return $totalstok < $row->min_stok || $totalstok < $row->safety_stok;
+                //     });
+                // })
                 ->addColumn('totalstok', function ($row) {
                     $stokawal = $row->barang_stok;
                     $jmlmasuk = BarangmasukModel::where('barang_id', '=', $row->barang_id)->sum('bm_jumlah');
                     $jmlkeluar = BarangkeluarModel::where('barang_id', '=', $row->barang_id)->sum('bk_jumlah');
                     $totalstok = $stokawal + $jmlmasuk - $jmlkeluar;
-        
-                    if ($totalstok == 0) {
+    
+                    if ($totalstok < $row->min_stok) {
                         $result = '<span class="text-danger">'.$totalstok.'</span>';
-                    } else if ($totalstok > 0) {
-                        $result = '<span class="text-success">'.$totalstok.'</span>';
+                    } else if ($totalstok < $row->safety_stok) {
+                        $result = '<span class="text-warning">'.$totalstok.'</span>';
                     } else {
-                        $result = '<span class="text-danger">'.$totalstok.'</span>';
+                        $result = '<span class="text-success">'.$totalstok.'</span>';
                     }
-        
+    
                     return $result;
                 })
                 ->addColumn('average', function ($row) {
