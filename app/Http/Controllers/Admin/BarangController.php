@@ -180,11 +180,12 @@ class BarangController extends Controller
         }
     }
 
+
     public function proses_tambah(Request $request)
     {
         $img = "";
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->nama)));
-
+    // dd($request->all());
         //upload image
         if ($request->file('foto') == null) {
             $img = "image.png";
@@ -194,13 +195,13 @@ class BarangController extends Controller
             $img = $image->hashName();
         }
 
-
         //create
         BarangModel::create([
             'barang_gambar' => $img,
             'jenisbarang_id' => $request->jenisbarang,
             'satuan_id' => $request->satuan,
             'merk_id' => $request->merk,
+            'user_id' => session()->get('user')->user_id,
             'barang_kode' => $request->kode,
             'barang_nama' => $request->nama,
             'barang_slug' => $slug,
@@ -256,6 +257,7 @@ class BarangController extends Controller
         return response()->json(['success' => 'Berhasil']);
     }
 
+    
 
     public function proses_hapus(Request $request, BarangModel $barang)
     {
@@ -267,4 +269,30 @@ class BarangController extends Controller
 
         return response()->json(['success' => 'Berhasil']);
     }
+
+    public function getLatestBarangCode(Request $request)
+{
+    
+    $jenisbarang_id = $request->get('jenisbarang_id');
+
+    $latestBarang = BarangModel::where('jenisbarang_id', $jenisbarang_id)
+        ->latest('barang_id')
+        ->first();
+        // dd($latestBarang);
+    if ($latestBarang) {
+        $currentCode = $latestBarang->barang_kode;
+        // Misal kode barang terakhir adalah OH-0001, kita perlu mengambil angka terakhir setelah tanda '-'
+        $lastCodeNumber = (int) substr($currentCode, strpos($currentCode, '-') + 1);
+        $newCodeNumber = $lastCodeNumber + 1;
+        $newCode = substr($currentCode, 0, strpos($currentCode, '-')) . '-' . str_pad($newCodeNumber, 4, '0', STR_PAD_LEFT);
+    } else {
+        // Jika belum ada data barang untuk jenis barang ini
+        $jenisbarang = JenisBarangModel::findOrFail($jenisbarang_id);
+        $initials = strtoupper(substr($jenisbarang->jenisbarang_nama, 0, 2));
+
+        $newCode = $initials . '-0001'; // Misal: OH-0001
+    }
+
+    return response()->json(['code' => $newCode]);
+}
 }

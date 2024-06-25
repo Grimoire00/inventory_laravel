@@ -91,11 +91,14 @@ Route::group(['middleware' => 'userlogin'], function () {
 
     Route::middleware(['checkRoleUser:/barang,submenu'])->group(function () {
         // Barang
+        Route::get('/admin/barang/get-latest-code', [BarangController::class, 'getLatestBarangCode'])->name('barang.getLatestCode');
         Route::resource('/admin/barang', BarangController::class)->except('store');
         Route::get('/admin/barang/show/', [BarangController::class, 'show'])->name('barang.getbarang');
         Route::post('/admin/barang/proses_tambah/', [BarangController::class, 'proses_tambah'])->name('barang.store');
         Route::post('/admin/barang/proses_ubah/{barang}', [BarangController::class, 'proses_ubah']);
         Route::post('/admin/barang/proses_hapus/{barang}', [BarangController::class, 'proses_hapus']);
+        //getlastkode
+
     });
 
     Route::middleware(['checkRoleUser:/minmax,submenu'])->group(function () {
